@@ -371,6 +371,9 @@
 #define EMBER_AF_PLUGIN_SMART_ENERGY_REGISTRATION_ESI_DISCOVERY_PERIOD 3
 #define EMBER_AF_PLUGIN_SMART_ENERGY_REGISTRATION_ALLOW_NON_ESI_TIME_SERVERS
 
+// Use this macro to check if Trust Center Network Key Update Unicast plugin is included
+#define EMBER_AF_PLUGIN_TRUST_CENTER_NWK_KEY_UPDATE_UNICAST
+
 // Use this macro to check if Unix Library plugin is included
 #define EMBER_AF_PLUGIN_UNIX_LIBRARY
 // User options for plugin Unix Library
