@@ -180,6 +180,10 @@ APPLICATION_FILES= \
   ../../../../../SiliconLabs/SimplicityStudio/v4_3/developer/sdks/gecko_sdk_suite/v2.7/protocol/zigbee/app/framework/plugin/identify/identify.c \
   ../../../../../SiliconLabs/SimplicityStudio/v4_3/developer/sdks/gecko_sdk_suite/v2.7/protocol/zigbee/app/framework/plugin/identify/identify-cli.c \
   ../../../../../SiliconLabs/SimplicityStudio/v4_3/developer/sdks/gecko_sdk_suite/v2.7/protocol/zigbee/app/framework/plugin/identify-feedback/identify-feedback.c \
+  ../../../../../SiliconLabs/SimplicityStudio/v4_3/developer/sdks/gecko_sdk_suite/v2.7/protocol/zigbee/app/framework/plugin/key-establishment/key-establishment.c \
+  ../../../../../SiliconLabs/SimplicityStudio/v4_3/developer/sdks/gecko_sdk_suite/v2.7/protocol/zigbee/app/framework/plugin/key-establishment/key-establishment-cli.c \
+  ../../../../../SiliconLabs/SimplicityStudio/v4_3/developer/sdks/gecko_sdk_suite/v2.7/protocol/zigbee/app/framework/plugin/key-establishment/key-establishment-curve-support.c \
+  ../../../../../SiliconLabs/SimplicityStudio/v4_3/developer/sdks/gecko_sdk_suite/v2.7/protocol/zigbee/app/framework/plugin/key-establishment/key-establishment-storage-static.c \
   ../../../../../SiliconLabs/SimplicityStudio/v4_3/developer/sdks/gecko_sdk_suite/v2.7/util/plugin/plugin-common/linked-list/linked-list.c \
   ../../../../../SiliconLabs/SimplicityStudio/v4_3/developer/sdks/gecko_sdk_suite/v2.7/util/third_party/mbedtls/library/aes.c \
   ../../../../../SiliconLabs/SimplicityStudio/v4_3/developer/sdks/gecko_sdk_suite/v2.7/util/third_party/mbedtls/library/aesni.c \
@@ -284,14 +288,6 @@ APPLICATION_FILES= \
   ../../../../../SiliconLabs/SimplicityStudio/v4_3/developer/sdks/gecko_sdk_suite/v2.7/protocol/zigbee/app/framework/plugin/simple-metering-client/simple-metering-client-cli.c \
   ../../../../../SiliconLabs/SimplicityStudio/v4_3/developer/sdks/gecko_sdk_suite/v2.7/protocol/zigbee/app/framework/plugin/smart-energy-registration/smart-energy-registration.c \
   ../../../../../SiliconLabs/SimplicityStudio/v4_3/developer/sdks/gecko_sdk_suite/v2.7/protocol/zigbee/app/framework/plugin/smart-energy-registration/smart-energy-registration-cli.c \
-  ../../../../../SiliconLabs/SimplicityStudio/v4_3/developer/sdks/gecko_sdk_suite/v2.7/protocol/zigbee/app/framework/plugin/trust-center-backup/trust-center-backup.c \
-  ../../../../../SiliconLabs/SimplicityStudio/v4_3/developer/sdks/gecko_sdk_suite/v2.7/protocol/zigbee/app/framework/plugin/trust-center-backup/trust-center-backup-cli.c \
-  ../../../../../SiliconLabs/SimplicityStudio/v4_3/developer/sdks/gecko_sdk_suite/v2.7/protocol/zigbee/app/framework/plugin/trust-center-backup/trust-center-backup-cli-posix.c \
-  ../../../../../SiliconLabs/SimplicityStudio/v4_3/developer/sdks/gecko_sdk_suite/v2.7/protocol/zigbee/app/framework/plugin/trust-center-backup/trust-center-backup-posix.c \
-  ../../../../../SiliconLabs/SimplicityStudio/v4_3/developer/sdks/gecko_sdk_suite/v2.7/protocol/zigbee/app/framework/plugin/trust-center-keepalive/trust-center-keepalive.c \
-  ../../../../../SiliconLabs/SimplicityStudio/v4_3/developer/sdks/gecko_sdk_suite/v2.7/protocol/zigbee/app/framework/plugin/trust-center-nwk-key-update-broadcast/trust-center-nwk-key-update-broadcast.c \
-  ../../../../../SiliconLabs/SimplicityStudio/v4_3/developer/sdks/gecko_sdk_suite/v2.7/protocol/zigbee/app/framework/plugin/trust-center-nwk-key-update-periodic/trust-center-nwk-key-update-periodic.c \
-  ../../../../../SiliconLabs/SimplicityStudio/v4_3/developer/sdks/gecko_sdk_suite/v2.7/protocol/zigbee/app/framework/plugin/trust-center-nwk-key-update-unicast/trust-center-nwk-key-update-unicast.c \
   ../../../../../SiliconLabs/SimplicityStudio/v4_3/developer/sdks/gecko_sdk_suite/v2.7/platform/base/hal/micro/generic/crc.c \
   ../../../../../SiliconLabs/SimplicityStudio/v4_3/developer/sdks/gecko_sdk_suite/v2.7/platform/base/hal/micro/generic/endian.c \
   ../../../../../SiliconLabs/SimplicityStudio/v4_3/developer/sdks/gecko_sdk_suite/v2.7/platform/base/hal/micro/generic/random.c \
@@ -301,7 +297,6 @@ APPLICATION_FILES= \
   ../../../../../SiliconLabs/SimplicityStudio/v4_3/developer/sdks/gecko_sdk_suite/v2.7/platform/base/hal/micro/unix/host/token.c \
   ../../../../../SiliconLabs/SimplicityStudio/v4_3/developer/sdks/gecko_sdk_suite/v2.7/platform/base/hal/plugin/serial/ember-printf-convert.c \
   ../../../../../SiliconLabs/SimplicityStudio/v4_3/developer/sdks/gecko_sdk_suite/v2.7/protocol/zigbee/app/util/serial/linux-serial.c \
-  ../../../../../SiliconLabs/SimplicityStudio/v4_3/developer/sdks/gecko_sdk_suite/v2.7/protocol/zigbee/app/framework/plugin/update-ha-tc-link-key/update-ha-tc-link-key.c \
   ../../../../../SiliconLabs/SimplicityStudio/v4_3/developer/sdks/gecko_sdk_suite/v2.7/protocol/zigbee/app/framework/plugin/update-tc-link-key/update-tc-link-key.c \
   ../../../../../SiliconLabs/SimplicityStudio/v4_3/developer/sdks/gecko_sdk_suite/v2.7/protocol/zigbee/app/framework/plugin/update-tc-link-key/update-tc-link-key-cli.c \
   ../../../../../SiliconLabs/SimplicityStudio/v4_3/developer/sdks/gecko_sdk_suite/v2.7/protocol/zigbee/app/framework/cli/core-cli.c \
