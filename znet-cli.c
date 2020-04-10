@@ -685,31 +685,6 @@ static EmberCommandEntry emberCommandPluginIdentifyTable[] = {
   emberCommandEntryActionWithDetails("print", emAfPluginIdentifyCliPrint, "", "Print which endpoints are reporting.", NULL),
   emberCommandEntryTerminator(),
 };
-void emAfKeyEstablishmentInterpanCommand(void);
-#if defined(EMBER_COMMAND_INTEPRETER_HAS_DESCRIPTION_FIELD)
-static const char * const pluginKeyEstablishmentInterpanCommandArguments[] = {
-  "The PAN ID that the target is located on.",
-  "The target's EUI64 (big endian)",
-  NULL
-};
-#endif
-
-
-void emAfKeyEstablishmentStartCommand(void);
-#if defined(EMBER_COMMAND_INTEPRETER_HAS_DESCRIPTION_FIELD)
-static const char * const pluginKeyEstablishmentStartCommandArguments[] = {
-  "Target node ID.",
-  "Target node's endpoint.",
-  NULL
-};
-#endif
-
-
-static EmberCommandEntry emberCommandPluginKeyEstablishmentTable[] = {
-  emberCommandEntryActionWithDetails("interpan", emAfKeyEstablishmentInterpanCommand, "vb", "Initiate key establishment with the target device over interpan.", pluginKeyEstablishmentInterpanCommandArguments),
-  emberCommandEntryActionWithDetails("start", emAfKeyEstablishmentStartCommand, "vu", "Initiates key establishment with the target node ID.", pluginKeyEstablishmentStartCommandArguments),
-  emberCommandEntryTerminator(),
-};
 void emberAfPluginNetworkCreatorFormCommand(void);
 #if defined(EMBER_COMMAND_INTEPRETER_HAS_DESCRIPTION_FIELD)
 static const char * const pluginNetworkCreatorFormCommandArguments[] = {
@@ -1315,7 +1290,6 @@ static EmberCommandEntry emberCommandPluginTable[] = {
   emberCommandEntrySubMenu("fragmentation", emberCommandPluginFragmentationTable, ""),
   emberCommandEntrySubMenu("gateway", emberCommandPluginGatewayTable, ""),
   emberCommandEntrySubMenu("identify", emberCommandPluginIdentifyTable, ""),
-  emberCommandEntrySubMenu("key-establishment", emberCommandPluginKeyEstablishmentTable, ""),
   emberCommandEntrySubMenu("network-creator", emberCommandPluginNetworkCreatorTable, ""),
   emberCommandEntrySubMenu("network-creator-security", emberCommandPluginNetworkCreatorSecurityTable, ""),
   emberCommandEntrySubMenu("network-steering", emberCommandPluginNetworkSteeringTable, ""),
