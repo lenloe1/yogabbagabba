@@ -128,6 +128,21 @@ void emberAfScenesClusterClearSceneTableCallback(uint8_t endpoint)
 {
 }
 
+/** @brief Key Establishment Cluster Client Command Received
+ *
+ * This function is called by the application framework when a server-to-client
+ * key establishment command is received but has yet to be handled by the
+ * framework code.  This function should return a bool value indicating whether
+ * the command has been handled by the application code and should not be
+ * further processed by the framework.
+ *
+ * @param cmd   Ver.: always
+ */
+bool emberAfKeyEstablishmentClusterClientCommandReceivedCallback(EmberAfClusterCommand *cmd)
+{
+  return false;
+}
+
 /** @brief Cluster Init
  *
  * This function is called when a specific cluster is initialized. It gives the
@@ -730,23 +745,35 @@ EmberPacketAction emberAfIncomingPacketFilterCallback(EmberZigbeePacketType pack
   return EMBER_ACCEPT_PACKET;
 }
 
-/** @brief Initiate Partner Link Key Exchange
+/** @brief Initiate Inter Pan Key Establishment
  *
- * This function is called by the framework to initiate a partner link key
- * exchange with a remote device.  The application should return EMBER_SUCCESS
- * if the partner link key exchange was initiated successfully.  When the
- * partner link key exchange completes, the application should call the given
- * callback.
+ * This function is called by the framework to initiate key establishment with a
+ * remote device on a different PAN.  The application should return
+ * EMBER_SUCCESS if key establishment was initiated successfully.  The
+ * application should call ::emberAfInterPanKeyEstablishmentCallback as events
+ * occur.
  *
- * @param target The node id of the remote device.  Ver.: always
- * @param endpoint The key establishment endpoint of the remote device.  Ver.:
- * always
- * @param callback The callback that should be called when the partner link key
- * exchange completse.  Ver.: always
+ * @param panId The PAN id of the remote device.  Ver.: always
+ * @param eui64 The EUI64 of the remote device.  Ver.: always
  */
-EmberStatus emberAfInitiatePartnerLinkKeyExchangeCallback(EmberNodeId target,
-                                                          uint8_t endpoint,
-                                                          EmberAfPartnerLinkKeyExchangeCallback *callback)
+EmberStatus emberAfInitiateInterPanKeyEstablishmentCallback(EmberPanId panId,
+                                                            const EmberEUI64 eui64)
+{
+  return EMBER_LIBRARY_NOT_PRESENT;
+}
+
+/** @brief Initiate Key Establishment
+ *
+ * This function is called by the framework to initiate key establishment with a
+ * remote device.  The application should return EMBER_SUCCESS if key
+ * establishment was initiated successfully.  The application should call
+ * ::emberAfKeyEstablishmentCallback as events occur.
+ *
+ * @param nodeId The node id of the remote device.  Ver.: always
+ * @param endpoint The endpoint on the remote device.  Ver.: always
+ */
+EmberStatus emberAfInitiateKeyEstablishmentCallback(EmberNodeId nodeId,
+                                                    uint8_t endpoint)
 {
   return EMBER_LIBRARY_NOT_PRESENT;
 }
@@ -1613,35 +1640,16 @@ EmberPacketAction emberAfOutgoingPacketFilterCallback(EmberZigbeePacketType pack
   return EMBER_ACCEPT_PACKET;
 }
 
-/** @brief Partner Link Key Exchange Request
+/** @brief Performing Key Establishment
  *
- * This function is called by the framework on SOC platforms when a remote node
- * requests a partner link key exchange.  The application should return
- * EMBER_SUCCESS to accept the request or any other status to reject it.  On
- * network coprocessor platforms, this function will not be called because the
- * NCP handles partner link key exchange requests based on the binding policy.
+ * This function is called by the framework to determine if the device is
+ * performing key establishment.  The application should return true if key
+ * establishment is in progress.
  *
- * @param partner The EUI of the remote node.  Ver.: always
  */
-EmberZdoStatus emberAfPartnerLinkKeyExchangeRequestCallback(EmberEUI64 partner)
+bool emberAfPerformingKeyEstablishmentCallback(void)
 {
-  return EMBER_ZDP_NOT_SUPPORTED;
-}
-
-/** @brief Partner Link Key Exchange Response
- *
- * This function is called by the framework when a remote node requests a
- * partner link key exchange.  The application should return true to accept the
- * request or false to reject it.  On network coprocessor platforms, this
- * function will not be called because the NCP handles partner link key exchange
- * requests based on the binding policy.
- *
- * @param sender The EUI of the remote node.  Ver.: always
- * @param status The ZDO response status.  Ver.: always
- */
-void emberAfPartnerLinkKeyExchangeResponseCallback(EmberNodeId sender,
-                                                   EmberZdoStatus status)
-{
+  return false;
 }
 
 /** @brief Broadcast Sent
@@ -2404,6 +2412,21 @@ void emberAfSecurityInitCallback(EmberInitialSecurityState *state,
                                  EmberExtendedSecurityBitmask *extended,
                                  bool trustCenter)
 {
+}
+
+/** @brief Key Establishment Cluster Server Command Received
+ *
+ * This function is called by the application framework when a client-to-server
+ * key establishment command is received but has yet to be handled by the
+ * framework code.  This function should return a bool value indicating whether
+ * the command has been handled by the application code and should not be
+ * further processed by the framework.
+ *
+ * @param cmd   Ver.: always
+ */
+bool emberAfKeyEstablishmentClusterServerCommandReceivedCallback(EmberAfClusterCommand *cmd)
+{
+  return false;
 }
 
 /** @brief Set Default Poll Control
