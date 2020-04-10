@@ -1069,30 +1069,6 @@
 
 /** @} */ // end group plugin-identify
 
-/** @addtogroup plugin-key-establishment Plugin Commands: Key Establishment
- * @ingroup cli
- * The Key Establishment commands provide commands to initiate key establishment
- * with a remote target.
- * 
- * @{
- */
-
-/** @brief <b>plugin key-establishment interpan [panId:2] [eui64:-1] </b>
- *   - <i>Initiate key establishment with the target device over interpan.</i>
- *     - panId - INT16U - The PAN ID that the target is located on.
- *     - eui64 - OCTET_STRING - The target's EUI64 (big endian)
- */
-#define EMBER_AF_DOXYGEN_CLI_COMMAND_PLUGIN_KEY_ESTABLISHMENT_PLUGIN_KEY_ESTABLISHMENT_INTERPAN
-
-/** @brief <b>plugin key-establishment start [nodeId:2] [endpoint:1] </b>
- *   - <i>Initiates key establishment with the target node ID.</i>
- *     - nodeId - INT16U - Target node ID.
- *     - endpoint - INT8U - Target node's endpoint.
- */
-#define EMBER_AF_DOXYGEN_CLI_COMMAND_PLUGIN_KEY_ESTABLISHMENT_PLUGIN_KEY_ESTABLISHMENT_START
-
-/** @} */ // end group plugin-key-establishment
-
 /** @addtogroup plugin-network-creator Plugin Commands: Network Creator
  * @ingroup cli
  * Commands pertaining to network creation with the Network Creator plugin.
@@ -2346,16 +2322,6 @@
  */
 
 /** @} */ // end group plugin-identify
-
-/** @addtogroup plugin-key-establishment Plugin Commands: Key Establishment
- * @ingroup cli
- * The Key Establishment commands provide commands to initiate key establishment
- * with a remote target.
- * 
- * @{
- */
-
-/** @} */ // end group plugin-key-establishment
 
 /** @addtogroup plugin-network-creator Plugin Commands: Network Creator
  * @ingroup cli
