@@ -128,21 +128,6 @@ void emberAfScenesClusterClearSceneTableCallback(uint8_t endpoint)
 {
 }
 
-/** @brief Key Establishment Cluster Client Command Received
- *
- * This function is called by the application framework when a server-to-client
- * key establishment command is received but has yet to be handled by the
- * framework code.  This function should return a bool value indicating whether
- * the command has been handled by the application code and should not be
- * further processed by the framework.
- *
- * @param cmd   Ver.: always
- */
-bool emberAfKeyEstablishmentClusterClientCommandReceivedCallback(EmberAfClusterCommand *cmd)
-{
-  return false;
-}
-
 /** @brief Cluster Init
  *
  * This function is called when a specific cluster is initialized. It gives the
@@ -743,39 +728,6 @@ EmberPacketAction emberAfIncomingPacketFilterCallback(EmberZigbeePacketType pack
                                                       void* data)
 {
   return EMBER_ACCEPT_PACKET;
-}
-
-/** @brief Initiate Inter Pan Key Establishment
- *
- * This function is called by the framework to initiate key establishment with a
- * remote device on a different PAN.  The application should return
- * EMBER_SUCCESS if key establishment was initiated successfully.  The
- * application should call ::emberAfInterPanKeyEstablishmentCallback as events
- * occur.
- *
- * @param panId The PAN id of the remote device.  Ver.: always
- * @param eui64 The EUI64 of the remote device.  Ver.: always
- */
-EmberStatus emberAfInitiateInterPanKeyEstablishmentCallback(EmberPanId panId,
-                                                            const EmberEUI64 eui64)
-{
-  return EMBER_LIBRARY_NOT_PRESENT;
-}
-
-/** @brief Initiate Key Establishment
- *
- * This function is called by the framework to initiate key establishment with a
- * remote device.  The application should return EMBER_SUCCESS if key
- * establishment was initiated successfully.  The application should call
- * ::emberAfKeyEstablishmentCallback as events occur.
- *
- * @param nodeId The node id of the remote device.  Ver.: always
- * @param endpoint The endpoint on the remote device.  Ver.: always
- */
-EmberStatus emberAfInitiateKeyEstablishmentCallback(EmberNodeId nodeId,
-                                                    uint8_t endpoint)
-{
-  return EMBER_LIBRARY_NOT_PRESENT;
 }
 
 /** @brief Inter Pan Key Establishment
@@ -1640,18 +1592,6 @@ EmberPacketAction emberAfOutgoingPacketFilterCallback(EmberZigbeePacketType pack
   return EMBER_ACCEPT_PACKET;
 }
 
-/** @brief Performing Key Establishment
- *
- * This function is called by the framework to determine if the device is
- * performing key establishment.  The application should return true if key
- * establishment is in progress.
- *
- */
-bool emberAfPerformingKeyEstablishmentCallback(void)
-{
-  return false;
-}
-
 /** @brief Broadcast Sent
  *
  * This function is called when a new MTORR broadcast has been successfully
@@ -1669,6 +1609,18 @@ void emberAfPluginConcentratorBroadcastSentCallback(void)
  * @param type The counter that rolled over Ver.: always
  */
 void emberAfPluginCountersRolloverCallback(EmberCounterType type)
+{
+}
+
+/** @brief Discovery Complete
+ *
+ * This function is called when a device in the database has been set to
+ * EMBER_AF_DEVICE_DISCOVERY_STATUS_DONE.
+ *
+ * @param device A pointer to the information struct about the device.
+ * Ver.: always
+ */
+void emberAfPluginDeviceDatabaseDiscoveryCompleteCallback(const EmberAfDeviceInfo*device)
 {
 }
 
@@ -2023,50 +1975,6 @@ uint16_t emberAfPluginSimpleMeteringClientRequestMirrorCallback(EmberEUI64 reque
   return 0xFFFF;
 }
 
-/** @brief ConnectivityEstablished
- * This function is called by the Trust Center Keepalive plugin when a read
- * attribute response command from the trust center is received after trust
- * center connectivity had previously been lost. This function is also called
- * after a match descriptor response.
- */
-void emberAfPluginTrustCenterKeepaliveConnectivityEstablishedCallback(void)
-{
-  return;
-}
-
-/** @brief Serverless Keep Alive Supported
- * This function is called by the Trust Center Keep Alive plugin when service
- * discovery receives a response indicating that the server does not support the
- * cluster.
- * Applications may consume this callback and have it return true in order to
- * have the Trust Center Keep Alive plugin code to still start the keep alive
- * process even if the server cluster is not discovered. If this callback returns
- * false, the Trust Center Keep Alive plugin code will only proceed to start the
- * process in case the service discovery was succesful.
- */
-bool emberAfPluginTrustCenterKeepaliveServerlessIsSupportedCallback(void)
-{
-  return false;
-}
-
-/** @brief Timeout
- *
- * This function is called by the Trust Center Keepalive plugin when the Trust
- * Center fails to acknowledge enough keepalive messages. Upon timing out,
- * the Trust Center Keepalive plugin code will initiate a search for a new
- * Trust Center, which falls in line with the Trust Center Swapout feature.
- * Applications may consume this callback and have it return true in order to
- * prevent the Trust Center Keepalive plugin code from issuing a Trust Center
- * (insecure) rejoin. Doing so will also give the application a chance to
- * implement its own rejoin algorithm or logic. If this callback returns false,
- * the Trust Center Keepalive plugin code will proceed with issuing a Trust
- * Center rejoin.
- */
-bool emberAfPluginTrustCenterKeepaliveTimeoutCallback(void)
-{
-  return false;
-}
-
 /** @brief Post Attribute Change
  *
  * This function is called by the application framework after it changes an
@@ -2414,21 +2322,6 @@ void emberAfSecurityInitCallback(EmberInitialSecurityState *state,
 {
 }
 
-/** @brief Key Establishment Cluster Server Command Received
- *
- * This function is called by the application framework when a client-to-server
- * key establishment command is received but has yet to be handled by the
- * framework code.  This function should return a bool value indicating whether
- * the command has been handled by the application code and should not be
- * further processed by the framework.
- *
- * @param cmd   Ver.: always
- */
-bool emberAfKeyEstablishmentClusterServerCommandReceivedCallback(EmberAfClusterCommand *cmd)
-{
-  return false;
-}
-
 /** @brief Set Default Poll Control
  *
  * This function will set the default poll control for the current network to
@@ -2651,36 +2544,14 @@ void emberAfTrustCenterJoinCallback(EmberNodeId newNodeId,
 {
 }
 
-/** @brief Overwrite Default Timing Parameters
- * This function is called by the Trust Center Keep Alive plugin when the Trust
- * Center Keep Alive process is started.
- * Applications may consume this callback and have it return true in order to
- * have the Trust Center Keep Alive plugin code to start the keep alive process
- * with timing parameters other than the default values. If this callback returns
- * false, the Trust Center Keep Alive plugin code will proceed to start with the
- * default timing parameters.
+/** @brief Trust Center Keepalive Abort
  *
- * @param baseTimeSeconds, base time for keep alive signalling to be set in seconds
+ * This callback is called when the device should abort the trust center
+ * keepalive process.
  *
- * @param jitterTimeSeconds, jitter time for keep alive signalling to be set in seconds
  */
-bool emberAfTrustCenterKeepaliveOverwriteDefaultTimingCallback(uint16_t *baseTimeSeconds, uint16_t *jitterTimeSeconds)
+void emberAfTrustCenterKeepaliveAbortCallback(void)
 {
-  return false;
-}
-
-/** @brief Serverless Keep Alive Enabled
- * This function is called by the Trust Center Keep Alive plugin when a service
- * discovery is done, a response has arrived and
- * emberAfPluginTrustCenterKeepaliveServerlessIsSupportedCallback() returned true.
- * Applications may consume this callback and have it return true in order to
- * have the Trust Center Keep Alive plugin code to start the keep alive process
- * right away. If this callback returns false, the Trust Center Keep Alive plugin
- * code will return to the disabled state waiting to be enabled.
- */
-bool emberAfTrustCenterKeepaliveServerlessIsEnabledCallback(void)
-{
-  return true;
 }
 
 /** @brief Trust Center Keepalive Update
