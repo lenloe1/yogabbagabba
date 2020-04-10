@@ -685,31 +685,6 @@ static EmberCommandEntry emberCommandPluginIdentifyTable[] = {
   emberCommandEntryActionWithDetails("print", emAfPluginIdentifyCliPrint, "", "Print which endpoints are reporting.", NULL),
   emberCommandEntryTerminator(),
 };
-void emAfKeyEstablishmentInterpanCommand(void);
-#if defined(EMBER_COMMAND_INTEPRETER_HAS_DESCRIPTION_FIELD)
-static const char * const pluginKeyEstablishmentInterpanCommandArguments[] = {
-  "The PAN ID that the target is located on.",
-  "The target's EUI64 (big endian)",
-  NULL
-};
-#endif
-
-
-void emAfKeyEstablishmentStartCommand(void);
-#if defined(EMBER_COMMAND_INTEPRETER_HAS_DESCRIPTION_FIELD)
-static const char * const pluginKeyEstablishmentStartCommandArguments[] = {
-  "Target node ID.",
-  "Target node's endpoint.",
-  NULL
-};
-#endif
-
-
-static EmberCommandEntry emberCommandPluginKeyEstablishmentTable[] = {
-  emberCommandEntryActionWithDetails("interpan", emAfKeyEstablishmentInterpanCommand, "vb", "Initiate key establishment with the target device over interpan.", pluginKeyEstablishmentInterpanCommandArguments),
-  emberCommandEntryActionWithDetails("start", emAfKeyEstablishmentStartCommand, "vu", "Initiates key establishment with the target node ID.", pluginKeyEstablishmentStartCommandArguments),
-  emberCommandEntryTerminator(),
-};
 void emberAfPluginNetworkCreatorFormCommand(void);
 #if defined(EMBER_COMMAND_INTEPRETER_HAS_DESCRIPTION_FIELD)
 static const char * const pluginNetworkCreatorFormCommandArguments[] = {
@@ -880,6 +855,30 @@ static EmberCommandEntry emberCommandPluginNetworkSteeringTable[] = {
   emberCommandEntryActionWithDetails("start", emberAfPluginNetworkSteeringStartCommand, "u", "Starts the network steering process.", pluginNetworkSteeringStartCommandArguments),
   emberCommandEntryActionWithDetails("status", emberAfPluginNetworkSteeringStatusCommand, "", "Displays the current status of the network steering process.", NULL),
   emberCommandEntryActionWithDetails("stop", emberAfPluginNetworkSteeringStopCommand, "", "Stops the network steering process.", NULL),
+  emberCommandEntryTerminator(),
+};
+void cbkeAllowPartner(void);
+#if defined(EMBER_COMMAND_INTEPRETER_HAS_DESCRIPTION_FIELD)
+static const char * const pluginPartnerLinkKeyExchangeAllowPartnerCommandArguments[] = {
+  "Boolean value to allow or disallow partner based key exchange",
+  NULL
+};
+#endif
+
+
+void cbkePartnerCommand(void);
+#if defined(EMBER_COMMAND_INTEPRETER_HAS_DESCRIPTION_FIELD)
+static const char * const pluginPartnerLinkKeyExchangePartnerCommandArguments[] = {
+  "The 2 byte short address of the node",
+  "The endpoint of the device with whom ot start cbke.",
+  NULL
+};
+#endif
+
+
+static EmberCommandEntry emberCommandPluginPartnerLinkKeyExchangeTable[] = {
+  emberCommandEntryActionWithDetails("allow-partner", cbkeAllowPartner, "u", "Set the allow partner flag within the device for Certificate Based Key ...", pluginPartnerLinkKeyExchangeAllowPartnerCommandArguments),
+  emberCommandEntryActionWithDetails("partner", cbkePartnerCommand, "vu", "Initiate partner link key exchange.", pluginPartnerLinkKeyExchangePartnerCommandArguments),
   emberCommandEntryTerminator(),
 };
 void emAfPriceClientCliBillingPeriodPrintCurrent(void);
@@ -1268,17 +1267,6 @@ static EmberCommandEntry emberCommandPluginSmartEnergyRegistrationTable[] = {
   emberCommandEntryActionWithDetails("set-period", setRegistrationDelayPeriod, "w", "Sets the discovery period (in seconds)", pluginSmartEnergyRegistrationSetPeriodCommandArguments),
   emberCommandEntryTerminator(),
 };
-void printChildTable(void);
-void printInfo(void);
-void printNeighborTable(void);
-void printRouteTable(void);
-static EmberCommandEntry emberCommandPluginStackDiagnosticsTable[] = {
-  emberCommandEntryActionWithDetails("child-table", printChildTable, "", "Prints out the entries in the stack's child table.", NULL),
-  emberCommandEntryActionWithDetails("info", printInfo, "", "Prints out general information about the state of the stack.", NULL),
-  emberCommandEntryActionWithDetails("neighbor-table", printNeighborTable, "", "Prints out the entries in the stack's neighbor table.", NULL),
-  emberCommandEntryActionWithDetails("route-table", printRouteTable, "", "Prints out the entries in the stack's route table.", NULL),
-  emberCommandEntryTerminator(),
-};
 void importClearCommand(void);
 void emAfTcExportCommand(void);
 #if defined(EMBER_COMMAND_INTEPRETER_HAS_DESCRIPTION_FIELD) && defined(EMBER_AF_PLUGIN_TRUST_CENTER_BACKUP_POSIX_FILE_BACKUP_SUPPORT)
@@ -1359,16 +1347,15 @@ static EmberCommandEntry emberCommandPluginTable[] = {
   emberCommandEntrySubMenu("fragmentation", emberCommandPluginFragmentationTable, ""),
   emberCommandEntrySubMenu("gateway", emberCommandPluginGatewayTable, ""),
   emberCommandEntrySubMenu("identify", emberCommandPluginIdentifyTable, ""),
-  emberCommandEntrySubMenu("key-establishment", emberCommandPluginKeyEstablishmentTable, ""),
   emberCommandEntrySubMenu("network-creator", emberCommandPluginNetworkCreatorTable, ""),
   emberCommandEntrySubMenu("network-creator-security", emberCommandPluginNetworkCreatorSecurityTable, ""),
   emberCommandEntrySubMenu("network-steering", emberCommandPluginNetworkSteeringTable, ""),
+  emberCommandEntrySubMenu("partner-link-key-exchange", emberCommandPluginPartnerLinkKeyExchangeTable, ""),
   emberCommandEntrySubMenu("price-client", emberCommandPluginPriceClientTable, ""),
   emberCommandEntrySubMenu("price-common", emberCommandPluginPriceCommonTable, ""),
   emberCommandEntrySubMenu("reporting", emberCommandPluginReportingTable, ""),
   emberCommandEntrySubMenu("simple-metering-client", emberCommandPluginSimpleMeteringClientTable, ""),
   emberCommandEntrySubMenu("smart-energy-registration", emberCommandPluginSmartEnergyRegistrationTable, ""),
-  emberCommandEntrySubMenu("stack-diagnostics", emberCommandPluginStackDiagnosticsTable, ""),
   emberCommandEntrySubMenu("trust-center-backup", emberCommandPluginTrustCenterBackupTable, ""),
   emberCommandEntrySubMenu("update-tc-link-key", emberCommandPluginUpdateTcLinkKeyTable, ""),
   emberCommandEntryTerminator(),
