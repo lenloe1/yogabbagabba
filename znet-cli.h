@@ -1127,30 +1127,6 @@
 
 /** @} */ // end group plugin-identify
 
-/** @addtogroup plugin-key-establishment Plugin Commands: Key Establishment
- * @ingroup cli
- * The Key Establishment commands provide commands to initiate key establishment
- * with a remote target.
- * 
- * @{
- */
-
-/** @brief <b>plugin key-establishment interpan [panId:2] [eui64:-1] </b>
- *   - <i>Initiate key establishment with the target device over interpan.</i>
- *     - panId - INT16U - The PAN ID that the target is located on.
- *     - eui64 - OCTET_STRING - The target's EUI64 (big endian)
- */
-#define EMBER_AF_DOXYGEN_CLI_COMMAND_PLUGIN_KEY_ESTABLISHMENT_PLUGIN_KEY_ESTABLISHMENT_INTERPAN
-
-/** @brief <b>plugin key-establishment start [nodeId:2] [endpoint:1] </b>
- *   - <i>Initiates key establishment with the target node ID.</i>
- *     - nodeId - INT16U - Target node ID.
- *     - endpoint - INT8U - Target node's endpoint.
- */
-#define EMBER_AF_DOXYGEN_CLI_COMMAND_PLUGIN_KEY_ESTABLISHMENT_PLUGIN_KEY_ESTABLISHMENT_START
-
-/** @} */ // end group plugin-key-establishment
-
 /** @addtogroup plugin-network-creator Plugin Commands: Network Creator
  * @ingroup cli
  * Commands pertaining to network creation with the Network Creator plugin.
@@ -1302,6 +1278,30 @@
 #define EMBER_AF_DOXYGEN_CLI_COMMAND_PLUGIN_NETWORK_STEERING_PLUGIN_NETWORK_STEERING_STOP
 
 /** @} */ // end group plugin-network-steering
+
+/** @addtogroup plugin-partner-link-key-exchange Plugin Commands: Partner Link Key Exchange
+ * @ingroup cli
+ * The partner link key exchange plugin contributes CLI commands to the
+ * application framework to be used for controlling facets of link key exchanges
+ * among partners.
+ * 
+ * @{
+ */
+
+/** @brief <b>plugin partner-link-key-exchange allow-partner [allowPartner:1] </b>
+ *   - <i>Set the allow partner flag within the device for Certificate Based Key Exchange</i>
+ *     - allowPartner - INT8U - Boolean value to allow or disallow partner based key exchange
+ */
+#define EMBER_AF_DOXYGEN_CLI_COMMAND_PLUGIN_PARTNER_LINK_KEY_EXCHANGE_PLUGIN_PARTNER_LINK_KEY_EXCHANGE_ALLOW_PARTNER
+
+/** @brief <b>plugin partner-link-key-exchange partner [nodeId:2] [endpoint:1] </b>
+ *   - <i>Initiate partner link key exchange.</i>
+ *     - nodeId - INT16U - The 2 byte short address of the node
+ *     - endpoint - INT8U - The endpoint of the device with whom ot start cbke.
+ */
+#define EMBER_AF_DOXYGEN_CLI_COMMAND_PLUGIN_PARTNER_LINK_KEY_EXCHANGE_PLUGIN_PARTNER_LINK_KEY_EXCHANGE_PARTNER
+
+/** @} */ // end group plugin-partner-link-key-exchange
 
 /** @addtogroup plugin-price-client Plugin Commands: Price Client
  * @ingroup cli
@@ -1581,36 +1581,6 @@
 #define EMBER_AF_DOXYGEN_CLI_COMMAND_PLUGIN_SMART_ENERGY_REGISTRATION_PLUGIN_SMART_ENERGY_REGISTRATION_SET_PERIOD
 
 /** @} */ // end group plugin-smart-energy-registration
-
-/** @addtogroup plugin-stack-diagnostics Plugin Commands: Stack Diagnostics
- * @ingroup cli
- * These commands give more information about the status of the status of the
- * stack, such as routing tables, neighbor tables, and child tables.
- * 
- * @{
- */
-
-/** @brief <b>plugin stack-diagnostics child-table </b>
- *   - <i>Prints out the entries in the stack's child table.</i>
- */
-#define EMBER_AF_DOXYGEN_CLI_COMMAND_PLUGIN_STACK_DIAGNOSTICS_PLUGIN_STACK_DIAGNOSTICS_CHILD_TABLE
-
-/** @brief <b>plugin stack-diagnostics info </b>
- *   - <i>Prints out general information about the state of the stack.</i>
- */
-#define EMBER_AF_DOXYGEN_CLI_COMMAND_PLUGIN_STACK_DIAGNOSTICS_PLUGIN_STACK_DIAGNOSTICS_INFO
-
-/** @brief <b>plugin stack-diagnostics neighbor-table </b>
- *   - <i>Prints out the entries in the stack's neighbor table.</i>
- */
-#define EMBER_AF_DOXYGEN_CLI_COMMAND_PLUGIN_STACK_DIAGNOSTICS_PLUGIN_STACK_DIAGNOSTICS_NEIGHBOR_TABLE
-
-/** @brief <b>plugin stack-diagnostics route-table </b>
- *   - <i>Prints out the entries in the stack's route table.</i>
- */
-#define EMBER_AF_DOXYGEN_CLI_COMMAND_PLUGIN_STACK_DIAGNOSTICS_PLUGIN_STACK_DIAGNOSTICS_ROUTE_TABLE
-
-/** @} */ // end group plugin-stack-diagnostics
 
 /** @addtogroup plugin-trust-center-backup Plugin Commands: Trust Center Backup
  * @ingroup cli
@@ -2483,16 +2453,6 @@
 
 /** @} */ // end group plugin-identify
 
-/** @addtogroup plugin-key-establishment Plugin Commands: Key Establishment
- * @ingroup cli
- * The Key Establishment commands provide commands to initiate key establishment
- * with a remote target.
- * 
- * @{
- */
-
-/** @} */ // end group plugin-key-establishment
-
 /** @addtogroup plugin-network-creator Plugin Commands: Network Creator
  * @ingroup cli
  * Commands pertaining to network creation with the Network Creator plugin.
@@ -2520,6 +2480,17 @@
  */
 
 /** @} */ // end group plugin-network-steering
+
+/** @addtogroup plugin-partner-link-key-exchange Plugin Commands: Partner Link Key Exchange
+ * @ingroup cli
+ * The partner link key exchange plugin contributes CLI commands to the
+ * application framework to be used for controlling facets of link key exchanges
+ * among partners.
+ * 
+ * @{
+ */
+
+/** @} */ // end group plugin-partner-link-key-exchange
 
 /** @addtogroup plugin-price-client Plugin Commands: Price Client
  * @ingroup cli
@@ -2571,16 +2542,6 @@
  */
 
 /** @} */ // end group plugin-smart-energy-registration
-
-/** @addtogroup plugin-stack-diagnostics Plugin Commands: Stack Diagnostics
- * @ingroup cli
- * These commands give more information about the status of the status of the
- * stack, such as routing tables, neighbor tables, and child tables.
- * 
- * @{
- */
-
-/** @} */ // end group plugin-stack-diagnostics
 
 /** @addtogroup plugin-trust-center-backup Plugin Commands: Trust Center Backup
  * @ingroup cli
