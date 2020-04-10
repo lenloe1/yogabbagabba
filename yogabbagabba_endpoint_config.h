@@ -57,6 +57,8 @@
 const EmberAfGenericClusterFunction emberAfFuncArrayIdentifyClusterServer[] = { (EmberAfGenericClusterFunction)emberAfIdentifyClusterServerInitCallback,(EmberAfGenericClusterFunction)emberAfIdentifyClusterServerAttributeChangedCallback}; \
 const EmberAfGenericClusterFunction emberAfFuncArrayPriceClusterClient[] = { (EmberAfGenericClusterFunction)emberAfPriceClusterClientInitCallback}; \
 const EmberAfGenericClusterFunction emberAfFuncArraySimpleMeteringClusterClient[] = { (EmberAfGenericClusterFunction)emberAfSimpleMeteringClusterClientDefaultResponseCallback}; \
+const EmberAfGenericClusterFunction emberAfFuncArrayKeyEstablishmentClusterClient[] = { (EmberAfGenericClusterFunction)emberAfKeyEstablishmentClusterClientAttributeChangedCallback,(EmberAfGenericClusterFunction)emberAfKeyEstablishmentClusterClientDefaultResponseCallback,(EmberAfGenericClusterFunction)emberAfKeyEstablishmentClusterClientMessageSentCallback,(EmberAfGenericClusterFunction)emberAfKeyEstablishmentClusterClientPreAttributeChangedCallback}; \
+const EmberAfGenericClusterFunction emberAfFuncArrayKeyEstablishmentClusterServer[] = { (EmberAfGenericClusterFunction)emberAfKeyEstablishmentClusterServerInitCallback,(EmberAfGenericClusterFunction)emberAfKeyEstablishmentClusterServerAttributeChangedCallback,(EmberAfGenericClusterFunction)emberAfKeyEstablishmentClusterServerDefaultResponseCallback,(EmberAfGenericClusterFunction)emberAfKeyEstablishmentClusterServerMessageSentCallback,(EmberAfGenericClusterFunction)emberAfKeyEstablishmentClusterServerPreAttributeChangedCallback}; \
 
 
 // Clusters definitions
@@ -66,8 +68,8 @@ const EmberAfGenericClusterFunction emberAfFuncArraySimpleMeteringClusterClient[
     { 0x0019, (EmberAfAttributeMetadata*)&(generatedAttributes[5]), 1, 2, (CLUSTER_MASK_SERVER), NULL,  },    \
     { 0x0700, (EmberAfAttributeMetadata*)&(generatedAttributes[12]), 1, 2, (CLUSTER_MASK_CLIENT| CLUSTER_MASK_INIT_FUNCTION), emberAfFuncArrayPriceClusterClient, },    \
     { 0x0702, (EmberAfAttributeMetadata*)&(generatedAttributes[13]), 1, 2, (CLUSTER_MASK_CLIENT| CLUSTER_MASK_DEFAULT_RESPONSE_FUNCTION), emberAfFuncArraySimpleMeteringClusterClient, },    \
-    { 0x0800, (EmberAfAttributeMetadata*)&(generatedAttributes[14]), 2, 0, (CLUSTER_MASK_CLIENT), NULL,  },    \
-    { 0x0800, (EmberAfAttributeMetadata*)&(generatedAttributes[16]), 2, 0, (CLUSTER_MASK_SERVER), NULL,  },    \
+    { 0x0800, (EmberAfAttributeMetadata*)&(generatedAttributes[14]), 2, 0, (CLUSTER_MASK_CLIENT| CLUSTER_MASK_ATTRIBUTE_CHANGED_FUNCTION| CLUSTER_MASK_DEFAULT_RESPONSE_FUNCTION| CLUSTER_MASK_MESSAGE_SENT_FUNCTION| CLUSTER_MASK_PRE_ATTRIBUTE_CHANGED_FUNCTION), emberAfFuncArrayKeyEstablishmentClusterClient, },    \
+    { 0x0800, (EmberAfAttributeMetadata*)&(generatedAttributes[16]), 2, 0, (CLUSTER_MASK_SERVER| CLUSTER_MASK_INIT_FUNCTION| CLUSTER_MASK_ATTRIBUTE_CHANGED_FUNCTION| CLUSTER_MASK_DEFAULT_RESPONSE_FUNCTION| CLUSTER_MASK_MESSAGE_SENT_FUNCTION| CLUSTER_MASK_PRE_ATTRIBUTE_CHANGED_FUNCTION), emberAfFuncArrayKeyEstablishmentClusterServer, },    \
     { 0x0021, (EmberAfAttributeMetadata*)&(generatedAttributes[6]), 6, 27, (CLUSTER_MASK_CLIENT), NULL,  },    \
   }
 
@@ -122,10 +124,8 @@ const EmberAfGenericClusterFunction emberAfFuncArraySimpleMeteringClusterClient[
 #define EMBER_AF_GENERATED_PLUGIN_INIT_FUNCTION_DECLARATIONS \
   void emberAfPluginNetworkFindInitCallback(void); \
   void emberAfPluginFragmentationInitCallback(void); \
-  void emberAfPluginTrustCenterNwkKeyUpdatePeriodicInitCallback(void); \
   void emberAfPluginReportingInitCallback(void); \
   void emberAfPluginPermitJoinManagerInitCallback(void); \
-  void emberAfPluginTrustCenterKeepaliveInitCallback(void); \
   void emberAfPluginDeviceDatabaseInitCallback(void); \
   void emberAfPluginCountersInitCallback(void); \
   void emberAfPluginEsiManagementInitCallback(void); \
@@ -134,10 +134,8 @@ const EmberAfGenericClusterFunction emberAfFuncArraySimpleMeteringClusterClient[
 #define EMBER_AF_GENERATED_PLUGIN_INIT_FUNCTION_CALLS \
   emberAfPluginNetworkFindInitCallback(); \
   emberAfPluginFragmentationInitCallback(); \
-  emberAfPluginTrustCenterNwkKeyUpdatePeriodicInitCallback(); \
   emberAfPluginReportingInitCallback(); \
   emberAfPluginPermitJoinManagerInitCallback(); \
-  emberAfPluginTrustCenterKeepaliveInitCallback(); \
   emberAfPluginDeviceDatabaseInitCallback(); \
   emberAfPluginCountersInitCallback(); \
   emberAfPluginEsiManagementInitCallback(); \
@@ -159,7 +157,6 @@ const EmberAfGenericClusterFunction emberAfFuncArraySimpleMeteringClusterClient[
   void emberAfPluginNetworkFindStackStatusCallback(EmberStatus status); \
   void emberAfPluginReportingStackStatusCallback(EmberStatus status); \
   void emberAfPluginConcentratorStackStatusCallback(EmberStatus status); \
-  void emberAfPluginTrustCenterKeepaliveStackStatusCallback(EmberStatus status); \
   void emberAfPluginNetworkCreatorSecurityStackStatusCallback(EmberStatus status); \
   void emberAfPluginNetworkSteeringStackStatusCallback(EmberStatus status); \
 
@@ -168,7 +165,6 @@ const EmberAfGenericClusterFunction emberAfFuncArraySimpleMeteringClusterClient[
   emberAfPluginNetworkFindStackStatusCallback(status); \
   emberAfPluginReportingStackStatusCallback(status); \
   emberAfPluginConcentratorStackStatusCallback(status); \
-  emberAfPluginTrustCenterKeepaliveStackStatusCallback(status); \
   emberAfPluginNetworkCreatorSecurityStackStatusCallback(status); \
   emberAfPluginNetworkSteeringStackStatusCallback(status); \
 
@@ -269,12 +265,12 @@ const EmberAfGenericClusterFunction emberAfFuncArraySimpleMeteringClusterClient[
     { 0x0702, 0x02, COMMAND_MASK_INCOMING_CLIENT }, /* Simple Metering / RemoveMirror */ \
     { 0x0702, 0x03, COMMAND_MASK_INCOMING_CLIENT }, /* Simple Metering / RequestFastPollModeResponse */ \
     { 0x0702, 0x0C, COMMAND_MASK_INCOMING_CLIENT }, /* Simple Metering / SupplyStatusResponse */ \
-    { 0x0800, 0x00, COMMAND_MASK_OUTGOING_CLIENT }, /* Key Establishment / InitiateKeyEstablishmentRequest */ \
-    { 0x0800, 0x00, COMMAND_MASK_OUTGOING_SERVER }, /* Key Establishment / InitiateKeyEstablishmentResponse */ \
-    { 0x0800, 0x01, COMMAND_MASK_OUTGOING_CLIENT }, /* Key Establishment / EphemeralDataRequest */ \
-    { 0x0800, 0x01, COMMAND_MASK_OUTGOING_SERVER }, /* Key Establishment / EphemeralDataResponse */ \
-    { 0x0800, 0x02, COMMAND_MASK_OUTGOING_CLIENT }, /* Key Establishment / ConfirmKeyDataRequest */ \
-    { 0x0800, 0x02, COMMAND_MASK_OUTGOING_SERVER }, /* Key Establishment / ConfirmKeyDataResponse */ \
+    { 0x0800, 0x00, COMMAND_MASK_OUTGOING_CLIENT | COMMAND_MASK_INCOMING_SERVER }, /* Key Establishment / InitiateKeyEstablishmentRequest */ \
+    { 0x0800, 0x00, COMMAND_MASK_OUTGOING_SERVER | COMMAND_MASK_INCOMING_CLIENT }, /* Key Establishment / InitiateKeyEstablishmentResponse */ \
+    { 0x0800, 0x01, COMMAND_MASK_OUTGOING_CLIENT | COMMAND_MASK_INCOMING_SERVER }, /* Key Establishment / EphemeralDataRequest */ \
+    { 0x0800, 0x01, COMMAND_MASK_OUTGOING_SERVER | COMMAND_MASK_INCOMING_CLIENT }, /* Key Establishment / EphemeralDataResponse */ \
+    { 0x0800, 0x02, COMMAND_MASK_OUTGOING_CLIENT | COMMAND_MASK_INCOMING_SERVER }, /* Key Establishment / ConfirmKeyDataRequest */ \
+    { 0x0800, 0x02, COMMAND_MASK_OUTGOING_SERVER | COMMAND_MASK_INCOMING_CLIENT }, /* Key Establishment / ConfirmKeyDataResponse */ \
     { 0x0800, 0x03, COMMAND_MASK_OUTGOING_SERVER | COMMAND_MASK_INCOMING_CLIENT }, /* Key Establishment / TerminateKeyEstablishment */ \
   }
 #define EMBER_AF_GENERATED_COMMAND_COUNT (47)
