@@ -418,48 +418,6 @@ EmberAfStatus emberAfExternalAttributeWriteCallback(uint8_t endpoint,
   return EMBER_ZCL_STATUS_FAILURE;
 }
 
-/** @brief Generates random data for the specified size
- *
- * This function is called when the Host needs to generate random data.
- *
- * @param result: key pointer to be filled with random data Ver.: always
- * @param result: size of the array to be filled with random data Ver.: always
- */
-EmberStatus emberAfGenerateRandomData(uint8_t* result, uint8_t size)
-{
-  return EMBER_LIBRARY_NOT_PRESENT;
-}
-
-/** @brief Generates a random key
- *
- * This function is called when the Host needs to generate a random key.
- *
- * @param result: key pointer to be filled with random data Ver.: always
- */
-EmberStatus emberAfGenerateRandomKey(EmberKeyData* result)
-{
-  uint16_t data;
-  uint8_t* keyPtr = emberKeyContents(result);
-  uint8_t i;
-
-  // Since our EZSP command only generates a random 16-bit number,
-  // we must call it repeatedly to get a 128-bit random number.
-
-  for ( i = 0; i < 8; i++ ) {
-    EmberStatus status = ezspGetRandomNumber(&data);
-
-    if ( status != EMBER_SUCCESS ) {
-      return status;
-    }
-
-    keyPtr[0] = LOW_BYTE(data);
-    keyPtr[1] = HIGH_BYTE(data);
-    keyPtr += 2;
-  }
-
-  return EMBER_SUCCESS;
-}
-
 /** @brief Get Current App Tasks
  *
  * This function is only useful to sleepy end devices.  This function will
@@ -2057,6 +2015,50 @@ uint16_t emberAfPluginSimpleMeteringClientRequestMirrorCallback(EmberEUI64 reque
   return 0xFFFF;
 }
 
+/** @brief ConnectivityEstablished
+ * This function is called by the Trust Center Keepalive plugin when a read
+ * attribute response command from the trust center is received after trust
+ * center connectivity had previously been lost. This function is also called
+ * after a match descriptor response.
+ */
+void emberAfPluginTrustCenterKeepaliveConnectivityEstablishedCallback(void)
+{
+  return;
+}
+
+/** @brief Serverless Keep Alive Supported
+ * This function is called by the Trust Center Keep Alive plugin when service
+ * discovery receives a response indicating that the server does not support the
+ * cluster.
+ * Applications may consume this callback and have it return true in order to
+ * have the Trust Center Keep Alive plugin code to still start the keep alive
+ * process even if the server cluster is not discovered. If this callback returns
+ * false, the Trust Center Keep Alive plugin code will only proceed to start the
+ * process in case the service discovery was succesful.
+ */
+bool emberAfPluginTrustCenterKeepaliveServerlessIsSupportedCallback(void)
+{
+  return false;
+}
+
+/** @brief Timeout
+ *
+ * This function is called by the Trust Center Keepalive plugin when the Trust
+ * Center fails to acknowledge enough keepalive messages. Upon timing out,
+ * the Trust Center Keepalive plugin code will initiate a search for a new
+ * Trust Center, which falls in line with the Trust Center Swapout feature.
+ * Applications may consume this callback and have it return true in order to
+ * prevent the Trust Center Keepalive plugin code from issuing a Trust Center
+ * (insecure) rejoin. Doing so will also give the application a chance to
+ * implement its own rejoin algorithm or logic. If this callback returns false,
+ * the Trust Center Keepalive plugin code will proceed with issuing a Trust
+ * Center rejoin.
+ */
+bool emberAfPluginTrustCenterKeepaliveTimeoutCallback(void)
+{
+  return false;
+}
+
 /** @brief Post Attribute Change
  *
  * This function is called by the application framework after it changes an
@@ -2626,14 +2628,36 @@ void emberAfTrustCenterJoinCallback(EmberNodeId newNodeId,
 {
 }
 
-/** @brief Trust Center Keepalive Abort
+/** @brief Overwrite Default Timing Parameters
+ * This function is called by the Trust Center Keep Alive plugin when the Trust
+ * Center Keep Alive process is started.
+ * Applications may consume this callback and have it return true in order to
+ * have the Trust Center Keep Alive plugin code to start the keep alive process
+ * with timing parameters other than the default values. If this callback returns
+ * false, the Trust Center Keep Alive plugin code will proceed to start with the
+ * default timing parameters.
  *
- * This callback is called when the device should abort the trust center
- * keepalive process.
+ * @param baseTimeSeconds, base time for keep alive signalling to be set in seconds
  *
+ * @param jitterTimeSeconds, jitter time for keep alive signalling to be set in seconds
  */
-void emberAfTrustCenterKeepaliveAbortCallback(void)
+bool emberAfTrustCenterKeepaliveOverwriteDefaultTimingCallback(uint16_t *baseTimeSeconds, uint16_t *jitterTimeSeconds)
 {
+  return false;
+}
+
+/** @brief Serverless Keep Alive Enabled
+ * This function is called by the Trust Center Keep Alive plugin when a service
+ * discovery is done, a response has arrived and
+ * emberAfPluginTrustCenterKeepaliveServerlessIsSupportedCallback() returned true.
+ * Applications may consume this callback and have it return true in order to
+ * have the Trust Center Keep Alive plugin code to start the keep alive process
+ * right away. If this callback returns false, the Trust Center Keep Alive plugin
+ * code will return to the disabled state waiting to be enabled.
+ */
+bool emberAfTrustCenterKeepaliveServerlessIsEnabledCallback(void)
+{
+  return true;
 }
 
 /** @brief Trust Center Keepalive Update
