@@ -1014,6 +1014,41 @@
 
 /** @} */ // end group plugin-counters
 
+/** @addtogroup plugin-device-database Plugin Commands: Device Database
+ * @ingroup cli
+ * This plugin provides a set of CLI commands for printing and manipulating the
+ * device database.
+ * 
+ * @{
+ */
+
+/** @brief <b>plugin device-database device add-dummy [eui64:8] [endpoints:1] [clusters:2] </b>
+ *   - <i>Add a device with specified EUI64 and a sequential number of clusters and endpoints.</i>
+ *     - eui64 - IEEE_ADDRESS - The address of the dummy device to add.
+ *     - endpoints - INT8U - The number of dummy endpoints to add.
+ *     - clusters - INT16U - The number of dummy clusters to add.
+ */
+#define EMBER_AF_DOXYGEN_CLI_COMMAND_PLUGIN_DEVICE_DATABASE_PLUGIN_DEVICE_DATABASE_DEVICE_ADD_DUMMY
+
+/** @brief <b>plugin device-database device erase [eui64:8] </b>
+ *   - <i>Erase the device with specified EUI64 from the database.</i>
+ *     - eui64 - IEEE_ADDRESS - The address of the device to erase from the database.
+ */
+#define EMBER_AF_DOXYGEN_CLI_COMMAND_PLUGIN_DEVICE_DATABASE_PLUGIN_DEVICE_DATABASE_DEVICE_ERASE
+
+/** @brief <b>plugin device-database device print [eui64:8] </b>
+ *   - <i>Print all the clusters and endpoints known about the specified device in the database.</i>
+ *     - eui64 - IEEE_ADDRESS - The address of the device to be looked up (little endian)
+ */
+#define EMBER_AF_DOXYGEN_CLI_COMMAND_PLUGIN_DEVICE_DATABASE_PLUGIN_DEVICE_DATABASE_DEVICE_PRINT
+
+/** @brief <b>plugin device-database print-all </b>
+ *   - <i>Print all devices in the database.</i>
+ */
+#define EMBER_AF_DOXYGEN_CLI_COMMAND_PLUGIN_DEVICE_DATABASE_PLUGIN_DEVICE_DATABASE_PRINT_ALL
+
+/** @} */ // end group plugin-device-database
+
 /** @addtogroup plugin-ezmode-commissioning Plugin Commands: EZ-Mode Commissioning
  * @ingroup cli
  * The EZ-Mode Commissioning plugin contributes several commands to the
@@ -1038,6 +1073,29 @@
 #define EMBER_AF_DOXYGEN_CLI_COMMAND_PLUGIN_EZMODE_COMMISSIONING_PLUGIN_EZMODE_COMMISSIONING_SERVER
 
 /** @} */ // end group plugin-ezmode-commissioning
+
+/** @addtogroup plugin-fragmentation Plugin Commands: Fragmentation
+ * @ingroup cli
+ * The Fragmentation Plugin provides the ability to supported fragmentation
+ * transmissions.  The CLI allows it to introduce negative behavior to foster
+ * testing.
+ * 
+ * @{
+ */
+
+/** @brief <b>plugin fragmentation artificial-block-drop [block-number:1] </b>
+ *   - <i>Artificially drops the block number defined by the passed argument only once, and then allows it upon a retry.</i>
+ *     - block-number - INT8U - The block number to artificially drop to force a retry.  Set to 0xFF to disable.
+ */
+#define EMBER_AF_DOXYGEN_CLI_COMMAND_PLUGIN_FRAGMENTATION_PLUGIN_FRAGMENTATION_ARTIFICIAL_BLOCK_DROP
+
+/** @brief <b>plugin fragmentation set-rx-window-size [window-size:1] </b>
+ *   - <i>Sets the receive window size.  By definition in the Smart Energy profile it must be set to 1 but this allows to be changed.</i>
+ *     - window-size - INT8U - The max number of the blocks received before an APS ack is generated.
+ */
+#define EMBER_AF_DOXYGEN_CLI_COMMAND_PLUGIN_FRAGMENTATION_PLUGIN_FRAGMENTATION_SET_RX_WINDOW_SIZE
+
+/** @} */ // end group plugin-fragmentation
 
 /** @addtogroup plugin-gateway Plugin Commands: Gateway Support
  * @ingroup cli
@@ -1068,6 +1126,30 @@
 #define EMBER_AF_DOXYGEN_CLI_COMMAND_PLUGIN_IDENTIFY_PLUGIN_IDENTIFY_PRINT
 
 /** @} */ // end group plugin-identify
+
+/** @addtogroup plugin-key-establishment Plugin Commands: Key Establishment
+ * @ingroup cli
+ * The Key Establishment commands provide commands to initiate key establishment
+ * with a remote target.
+ * 
+ * @{
+ */
+
+/** @brief <b>plugin key-establishment interpan [panId:2] [eui64:-1] </b>
+ *   - <i>Initiate key establishment with the target device over interpan.</i>
+ *     - panId - INT16U - The PAN ID that the target is located on.
+ *     - eui64 - OCTET_STRING - The target's EUI64 (big endian)
+ */
+#define EMBER_AF_DOXYGEN_CLI_COMMAND_PLUGIN_KEY_ESTABLISHMENT_PLUGIN_KEY_ESTABLISHMENT_INTERPAN
+
+/** @brief <b>plugin key-establishment start [nodeId:2] [endpoint:1] </b>
+ *   - <i>Initiates key establishment with the target node ID.</i>
+ *     - nodeId - INT16U - Target node ID.
+ *     - endpoint - INT8U - Target node's endpoint.
+ */
+#define EMBER_AF_DOXYGEN_CLI_COMMAND_PLUGIN_KEY_ESTABLISHMENT_PLUGIN_KEY_ESTABLISHMENT_START
+
+/** @} */ // end group plugin-key-establishment
 
 /** @addtogroup plugin-network-creator Plugin Commands: Network Creator
  * @ingroup cli
@@ -1529,6 +1611,63 @@
 #define EMBER_AF_DOXYGEN_CLI_COMMAND_PLUGIN_STACK_DIAGNOSTICS_PLUGIN_STACK_DIAGNOSTICS_ROUTE_TABLE
 
 /** @} */ // end group plugin-stack-diagnostics
+
+/** @addtogroup plugin-trust-center-backup Plugin Commands: Trust Center Backup
+ * @ingroup cli
+ * The Trust Center Backup plugin contributes several CLI commands to the
+ * application framework to be used in creating and managing reporting table
+ * entries directly on the device.
+ * 
+ * @{
+ */
+
+/** @brief <b>plugin trust-center-backup clear-import </b>
+ *   - <i>Clear the import data set.</i>
+ */
+#define EMBER_AF_DOXYGEN_CLI_COMMAND_PLUGIN_TRUST_CENTER_BACKUP_PLUGIN_TRUST_CENTER_BACKUP_CLEAR_IMPORT
+
+/** @brief <b>plugin trust-center-backup file-export [path:-1] </b>
+ *   - <i>Write the TC backup data to a file.</i>
+ *     - path - OCTET_STRING
+ */
+#define EMBER_AF_DOXYGEN_CLI_COMMAND_PLUGIN_TRUST_CENTER_BACKUP_PLUGIN_TRUST_CENTER_BACKUP_FILE_EXPORT
+
+/** @brief <b>plugin trust-center-backup file-import [path:-1] </b>
+ *   - <i>Read the TC Backup data from a file and bring the TC back online.</i>
+ *     - path - OCTET_STRING
+ */
+#define EMBER_AF_DOXYGEN_CLI_COMMAND_PLUGIN_TRUST_CENTER_BACKUP_PLUGIN_TRUST_CENTER_BACKUP_FILE_IMPORT
+
+/** @brief <b>plugin trust-center-backup import-key [index:1] [partnerEUI64:8] [newKey:-1] </b>
+ *   - <i>Set a key in the import data set.</i>
+ *     - index - INT8U
+ *     - partnerEUI64 - IEEE_ADDRESS
+ *     - newKey - OCTET_STRING
+ */
+#define EMBER_AF_DOXYGEN_CLI_COMMAND_PLUGIN_TRUST_CENTER_BACKUP_PLUGIN_TRUST_CENTER_BACKUP_IMPORT_KEY
+
+/** @brief <b>plugin trust-center-backup print-export </b>
+ *   - <i>Print the set of export data that a TC must backup.</i>
+ */
+#define EMBER_AF_DOXYGEN_CLI_COMMAND_PLUGIN_TRUST_CENTER_BACKUP_PLUGIN_TRUST_CENTER_BACKUP_PRINT_EXPORT
+
+/** @brief <b>plugin trust-center-backup print-import </b>
+ *   - <i>Print the import data set.</i>
+ */
+#define EMBER_AF_DOXYGEN_CLI_COMMAND_PLUGIN_TRUST_CENTER_BACKUP_PLUGIN_TRUST_CENTER_BACKUP_PRINT_IMPORT
+
+/** @brief <b>plugin trust-center-backup restore </b>
+ *   - <i>Use the import data set in a restore operation to bring the TC back online.</i>
+ */
+#define EMBER_AF_DOXYGEN_CLI_COMMAND_PLUGIN_TRUST_CENTER_BACKUP_PLUGIN_TRUST_CENTER_BACKUP_RESTORE
+
+/** @brief <b>plugin trust-center-backup set-ext-pan [extendedPanId:8] </b>
+ *   - <i>Set the extended PAN ID in the import data set.</i>
+ *     - extendedPanId - IEEE_ADDRESS
+ */
+#define EMBER_AF_DOXYGEN_CLI_COMMAND_PLUGIN_TRUST_CENTER_BACKUP_PLUGIN_TRUST_CENTER_BACKUP_SET_EXT_PAN
+
+/** @} */ // end group plugin-trust-center-backup
 
 /** @addtogroup plugin-update-tc-link-key Plugin Commands: Update TC Link Key
  * @ingroup cli
@@ -2293,6 +2432,16 @@
 
 /** @} */ // end group plugin-counters
 
+/** @addtogroup plugin-device-database Plugin Commands: Device Database
+ * @ingroup cli
+ * This plugin provides a set of CLI commands for printing and manipulating the
+ * device database.
+ * 
+ * @{
+ */
+
+/** @} */ // end group plugin-device-database
+
 /** @addtogroup plugin-ezmode-commissioning Plugin Commands: EZ-Mode Commissioning
  * @ingroup cli
  * The EZ-Mode Commissioning plugin contributes several commands to the
@@ -2302,6 +2451,17 @@
  */
 
 /** @} */ // end group plugin-ezmode-commissioning
+
+/** @addtogroup plugin-fragmentation Plugin Commands: Fragmentation
+ * @ingroup cli
+ * The Fragmentation Plugin provides the ability to supported fragmentation
+ * transmissions.  The CLI allows it to introduce negative behavior to foster
+ * testing.
+ * 
+ * @{
+ */
+
+/** @} */ // end group plugin-fragmentation
 
 /** @addtogroup plugin-gateway Plugin Commands: Gateway Support
  * @ingroup cli
@@ -2322,6 +2482,16 @@
  */
 
 /** @} */ // end group plugin-identify
+
+/** @addtogroup plugin-key-establishment Plugin Commands: Key Establishment
+ * @ingroup cli
+ * The Key Establishment commands provide commands to initiate key establishment
+ * with a remote target.
+ * 
+ * @{
+ */
+
+/** @} */ // end group plugin-key-establishment
 
 /** @addtogroup plugin-network-creator Plugin Commands: Network Creator
  * @ingroup cli
@@ -2411,6 +2581,17 @@
  */
 
 /** @} */ // end group plugin-stack-diagnostics
+
+/** @addtogroup plugin-trust-center-backup Plugin Commands: Trust Center Backup
+ * @ingroup cli
+ * The Trust Center Backup plugin contributes several CLI commands to the
+ * application framework to be used in creating and managing reporting table
+ * entries directly on the device.
+ * 
+ * @{
+ */
+
+/** @} */ // end group plugin-trust-center-backup
 
 /** @addtogroup plugin-update-tc-link-key Plugin Commands: Update TC Link Key
  * @ingroup cli
