@@ -19,6 +19,7 @@
   extern EmberEventControl emberAfPluginNetworkSteeringFinishSteeringEventControl; \
   extern EmberEventControl emberAfPluginReportingTickEventControl; \
   extern EmberEventControl emberAfPluginScanDispatchScanEventControl; \
+  extern EmberEventControl emberAfPluginTrustCenterNwkKeyUpdateUnicastMyEventControl; \
   extern EmberEventControl emberAfPluginUpdateTcLinkKeyBeginTcLinkKeyUpdateEventControl; \
   extern void emberAfPluginEzmodeCommissioningStateEventHandler(void); \
   extern void emberAfPluginFormAndJoinCleanupEventHandler(void); \
@@ -28,6 +29,7 @@
   extern void emberAfPluginNetworkSteeringFinishSteeringEventHandler(void); \
   extern void emberAfPluginReportingTickEventHandler(void); \
   extern void emberAfPluginScanDispatchScanEventHandler(void); \
+  extern void emberAfPluginTrustCenterNwkKeyUpdateUnicastMyEventHandler(void); \
   extern void emberAfPluginUpdateTcLinkKeyBeginTcLinkKeyUpdateEventHandler(void); \
   static void networkEventWrapper(EmberEventControl *control, EmberAfNetworkEventHandler handler, uint8_t networkIndex) \
   { \
@@ -68,6 +70,7 @@
   { &emberAfPluginNetworkSteeringFinishSteeringEventControl, emberAfPluginNetworkSteeringFinishSteeringEventHandler }, \
   { &emberAfPluginReportingTickEventControl, emberAfPluginReportingTickEventHandler }, \
   { &emberAfPluginScanDispatchScanEventControl, emberAfPluginScanDispatchScanEventHandler }, \
+  { &emberAfPluginTrustCenterNwkKeyUpdateUnicastMyEventControl, emberAfPluginTrustCenterNwkKeyUpdateUnicastMyEventHandler }, \
   { &emberAfPluginUpdateTcLinkKeyBeginTcLinkKeyUpdateEventControl, emberAfPluginUpdateTcLinkKeyBeginTcLinkKeyUpdateEventHandler }, \
   { &emberAfPluginPartnerLinkKeyExchangeTimeoutNetworkEventControls[0], emberAfPluginPartnerLinkKeyExchangeTimeoutNetworkEventWrapper0 }, \
   { &emberAfPluginPermitJoinManagerTimeoutNetworkEventControls[0], emberAfPluginPermitJoinManagerTimeoutNetworkEventWrapper0 }, \
@@ -85,6 +88,7 @@
   "Network Steering Plugin FinishSteering",  \
   "Reporting Plugin Tick",  \
   "Scan Dispatch Plugin Scan",  \
+  "Trust Center Network Key Update Unicast Plugin My",  \
   "Update TC Link Key Plugin BeginTcLinkKeyUpdate",  \
   "Partner Link Key Exchange Plugin Timeout NWK 0", \
   "Permit Join Manager Plugin Timeout NWK 0", \
