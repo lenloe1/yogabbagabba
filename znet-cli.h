@@ -1127,6 +1127,30 @@
 
 /** @} */ // end group plugin-identify
 
+/** @addtogroup plugin-key-establishment Plugin Commands: Key Establishment
+ * @ingroup cli
+ * The Key Establishment commands provide commands to initiate key establishment
+ * with a remote target.
+ * 
+ * @{
+ */
+
+/** @brief <b>plugin key-establishment interpan [panId:2] [eui64:-1] </b>
+ *   - <i>Initiate key establishment with the target device over interpan.</i>
+ *     - panId - INT16U - The PAN ID that the target is located on.
+ *     - eui64 - OCTET_STRING - The target's EUI64 (big endian)
+ */
+#define EMBER_AF_DOXYGEN_CLI_COMMAND_PLUGIN_KEY_ESTABLISHMENT_PLUGIN_KEY_ESTABLISHMENT_INTERPAN
+
+/** @brief <b>plugin key-establishment start [nodeId:2] [endpoint:1] </b>
+ *   - <i>Initiates key establishment with the target node ID.</i>
+ *     - nodeId - INT16U - Target node ID.
+ *     - endpoint - INT8U - Target node's endpoint.
+ */
+#define EMBER_AF_DOXYGEN_CLI_COMMAND_PLUGIN_KEY_ESTABLISHMENT_PLUGIN_KEY_ESTABLISHMENT_START
+
+/** @} */ // end group plugin-key-establishment
+
 /** @addtogroup plugin-network-creator Plugin Commands: Network Creator
  * @ingroup cli
  * Commands pertaining to network creation with the Network Creator plugin.
@@ -1581,63 +1605,6 @@
 #define EMBER_AF_DOXYGEN_CLI_COMMAND_PLUGIN_SMART_ENERGY_REGISTRATION_PLUGIN_SMART_ENERGY_REGISTRATION_SET_PERIOD
 
 /** @} */ // end group plugin-smart-energy-registration
-
-/** @addtogroup plugin-trust-center-backup Plugin Commands: Trust Center Backup
- * @ingroup cli
- * The Trust Center Backup plugin contributes several CLI commands to the
- * application framework to be used in creating and managing reporting table
- * entries directly on the device.
- * 
- * @{
- */
-
-/** @brief <b>plugin trust-center-backup clear-import </b>
- *   - <i>Clear the import data set.</i>
- */
-#define EMBER_AF_DOXYGEN_CLI_COMMAND_PLUGIN_TRUST_CENTER_BACKUP_PLUGIN_TRUST_CENTER_BACKUP_CLEAR_IMPORT
-
-/** @brief <b>plugin trust-center-backup file-export [path:-1] </b>
- *   - <i>Write the TC backup data to a file.</i>
- *     - path - OCTET_STRING
- */
-#define EMBER_AF_DOXYGEN_CLI_COMMAND_PLUGIN_TRUST_CENTER_BACKUP_PLUGIN_TRUST_CENTER_BACKUP_FILE_EXPORT
-
-/** @brief <b>plugin trust-center-backup file-import [path:-1] </b>
- *   - <i>Read the TC Backup data from a file and bring the TC back online.</i>
- *     - path - OCTET_STRING
- */
-#define EMBER_AF_DOXYGEN_CLI_COMMAND_PLUGIN_TRUST_CENTER_BACKUP_PLUGIN_TRUST_CENTER_BACKUP_FILE_IMPORT
-
-/** @brief <b>plugin trust-center-backup import-key [index:1] [partnerEUI64:8] [newKey:-1] </b>
- *   - <i>Set a key in the import data set.</i>
- *     - index - INT8U
- *     - partnerEUI64 - IEEE_ADDRESS
- *     - newKey - OCTET_STRING
- */
-#define EMBER_AF_DOXYGEN_CLI_COMMAND_PLUGIN_TRUST_CENTER_BACKUP_PLUGIN_TRUST_CENTER_BACKUP_IMPORT_KEY
-
-/** @brief <b>plugin trust-center-backup print-export </b>
- *   - <i>Print the set of export data that a TC must backup.</i>
- */
-#define EMBER_AF_DOXYGEN_CLI_COMMAND_PLUGIN_TRUST_CENTER_BACKUP_PLUGIN_TRUST_CENTER_BACKUP_PRINT_EXPORT
-
-/** @brief <b>plugin trust-center-backup print-import </b>
- *   - <i>Print the import data set.</i>
- */
-#define EMBER_AF_DOXYGEN_CLI_COMMAND_PLUGIN_TRUST_CENTER_BACKUP_PLUGIN_TRUST_CENTER_BACKUP_PRINT_IMPORT
-
-/** @brief <b>plugin trust-center-backup restore </b>
- *   - <i>Use the import data set in a restore operation to bring the TC back online.</i>
- */
-#define EMBER_AF_DOXYGEN_CLI_COMMAND_PLUGIN_TRUST_CENTER_BACKUP_PLUGIN_TRUST_CENTER_BACKUP_RESTORE
-
-/** @brief <b>plugin trust-center-backup set-ext-pan [extendedPanId:8] </b>
- *   - <i>Set the extended PAN ID in the import data set.</i>
- *     - extendedPanId - IEEE_ADDRESS
- */
-#define EMBER_AF_DOXYGEN_CLI_COMMAND_PLUGIN_TRUST_CENTER_BACKUP_PLUGIN_TRUST_CENTER_BACKUP_SET_EXT_PAN
-
-/** @} */ // end group plugin-trust-center-backup
 
 /** @addtogroup plugin-update-tc-link-key Plugin Commands: Update TC Link Key
  * @ingroup cli
@@ -2453,6 +2420,16 @@
 
 /** @} */ // end group plugin-identify
 
+/** @addtogroup plugin-key-establishment Plugin Commands: Key Establishment
+ * @ingroup cli
+ * The Key Establishment commands provide commands to initiate key establishment
+ * with a remote target.
+ * 
+ * @{
+ */
+
+/** @} */ // end group plugin-key-establishment
+
 /** @addtogroup plugin-network-creator Plugin Commands: Network Creator
  * @ingroup cli
  * Commands pertaining to network creation with the Network Creator plugin.
@@ -2542,17 +2519,6 @@
  */
 
 /** @} */ // end group plugin-smart-energy-registration
-
-/** @addtogroup plugin-trust-center-backup Plugin Commands: Trust Center Backup
- * @ingroup cli
- * The Trust Center Backup plugin contributes several CLI commands to the
- * application framework to be used in creating and managing reporting table
- * entries directly on the device.
- * 
- * @{
- */
-
-/** @} */ // end group plugin-trust-center-backup
 
 /** @addtogroup plugin-update-tc-link-key Plugin Commands: Update TC Link Key
  * @ingroup cli
