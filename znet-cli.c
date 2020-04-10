@@ -685,6 +685,31 @@ static EmberCommandEntry emberCommandPluginIdentifyTable[] = {
   emberCommandEntryActionWithDetails("print", emAfPluginIdentifyCliPrint, "", "Print which endpoints are reporting.", NULL),
   emberCommandEntryTerminator(),
 };
+void emAfKeyEstablishmentInterpanCommand(void);
+#if defined(EMBER_COMMAND_INTEPRETER_HAS_DESCRIPTION_FIELD)
+static const char * const pluginKeyEstablishmentInterpanCommandArguments[] = {
+  "The PAN ID that the target is located on.",
+  "The target's EUI64 (big endian)",
+  NULL
+};
+#endif
+
+
+void emAfKeyEstablishmentStartCommand(void);
+#if defined(EMBER_COMMAND_INTEPRETER_HAS_DESCRIPTION_FIELD)
+static const char * const pluginKeyEstablishmentStartCommandArguments[] = {
+  "Target node ID.",
+  "Target node's endpoint.",
+  NULL
+};
+#endif
+
+
+static EmberCommandEntry emberCommandPluginKeyEstablishmentTable[] = {
+  emberCommandEntryActionWithDetails("interpan", emAfKeyEstablishmentInterpanCommand, "vb", "Initiate key establishment with the target device over interpan.", pluginKeyEstablishmentInterpanCommandArguments),
+  emberCommandEntryActionWithDetails("start", emAfKeyEstablishmentStartCommand, "vu", "Initiates key establishment with the target node ID.", pluginKeyEstablishmentStartCommandArguments),
+  emberCommandEntryTerminator(),
+};
 void emberAfPluginNetworkCreatorFormCommand(void);
 #if defined(EMBER_COMMAND_INTEPRETER_HAS_DESCRIPTION_FIELD)
 static const char * const pluginNetworkCreatorFormCommandArguments[] = {
@@ -1267,63 +1292,6 @@ static EmberCommandEntry emberCommandPluginSmartEnergyRegistrationTable[] = {
   emberCommandEntryActionWithDetails("set-period", setRegistrationDelayPeriod, "w", "Sets the discovery period (in seconds)", pluginSmartEnergyRegistrationSetPeriodCommandArguments),
   emberCommandEntryTerminator(),
 };
-void importClearCommand(void);
-void emAfTcExportCommand(void);
-#if defined(EMBER_COMMAND_INTEPRETER_HAS_DESCRIPTION_FIELD) && defined(EMBER_AF_PLUGIN_TRUST_CENTER_BACKUP_POSIX_FILE_BACKUP_SUPPORT)
-static const char * const pluginTrustCenterBackupFileExportCommandArguments[] = {
-  "path",
-  NULL
-};
-#endif
-
-
-void emAfTcImportCommand(void);
-#if defined(EMBER_COMMAND_INTEPRETER_HAS_DESCRIPTION_FIELD) && defined(EMBER_AF_PLUGIN_TRUST_CENTER_BACKUP_POSIX_FILE_BACKUP_SUPPORT)
-static const char * const pluginTrustCenterBackupFileImportCommandArguments[] = {
-  "path",
-  NULL
-};
-#endif
-
-
-void importKeyCommand(void);
-#if defined(EMBER_COMMAND_INTEPRETER_HAS_DESCRIPTION_FIELD)
-static const char * const pluginTrustCenterBackupImportKeyCommandArguments[] = {
-  "index",
-  "partner e u i64",
-  "new key",
-  NULL
-};
-#endif
-
-
-void printExportDataCommand(void);
-void printImportDataCommand(void);
-void restoreFromBackupCommand(void);
-void setExtendedPanIdCommand(void);
-#if defined(EMBER_COMMAND_INTEPRETER_HAS_DESCRIPTION_FIELD)
-static const char * const pluginTrustCenterBackupSetExtPanCommandArguments[] = {
-  "extended pan id",
-  NULL
-};
-#endif
-
-
-static EmberCommandEntry emberCommandPluginTrustCenterBackupTable[] = {
-  emberCommandEntryActionWithDetails("clear-import", importClearCommand, "", "Clear the import data set.", NULL),
-#if defined(EMBER_AF_PLUGIN_TRUST_CENTER_BACKUP_POSIX_FILE_BACKUP_SUPPORT)
-  emberCommandEntryActionWithDetails("file-export", emAfTcExportCommand, "b", "Write the TC backup data to a file.", pluginTrustCenterBackupFileExportCommandArguments),
-#endif //defined(EMBER_AF_PLUGIN_TRUST_CENTER_BACKUP_POSIX_FILE_BACKUP_SUPPORT)
-#if defined(EMBER_AF_PLUGIN_TRUST_CENTER_BACKUP_POSIX_FILE_BACKUP_SUPPORT)
-  emberCommandEntryActionWithDetails("file-import", emAfTcImportCommand, "b", "Read the TC Backup data from a file and bring the TC back online.", pluginTrustCenterBackupFileImportCommandArguments),
-#endif //defined(EMBER_AF_PLUGIN_TRUST_CENTER_BACKUP_POSIX_FILE_BACKUP_SUPPORT)
-  emberCommandEntryActionWithDetails("import-key", importKeyCommand, "ubb", "Set a key in the import data set.", pluginTrustCenterBackupImportKeyCommandArguments),
-  emberCommandEntryActionWithDetails("print-export", printExportDataCommand, "", "Print the set of export data that a TC must backup.", NULL),
-  emberCommandEntryActionWithDetails("print-import", printImportDataCommand, "", "Print the import data set.", NULL),
-  emberCommandEntryActionWithDetails("restore", restoreFromBackupCommand, "", "Use the import data set in a restore operation to bring the TC back on ...", NULL),
-  emberCommandEntryActionWithDetails("set-ext-pan", setExtendedPanIdCommand, "b", "Set the extended PAN ID in the import data set.", pluginTrustCenterBackupSetExtPanCommandArguments),
-  emberCommandEntryTerminator(),
-};
 void emberAfPluginSetTCLinkKeyUpdateTimerCommand(void);
 #if defined(EMBER_COMMAND_INTEPRETER_HAS_DESCRIPTION_FIELD)
 static const char * const pluginUpdateTcLinkKeyTimerCommandArguments[] = {
@@ -1347,6 +1315,7 @@ static EmberCommandEntry emberCommandPluginTable[] = {
   emberCommandEntrySubMenu("fragmentation", emberCommandPluginFragmentationTable, ""),
   emberCommandEntrySubMenu("gateway", emberCommandPluginGatewayTable, ""),
   emberCommandEntrySubMenu("identify", emberCommandPluginIdentifyTable, ""),
+  emberCommandEntrySubMenu("key-establishment", emberCommandPluginKeyEstablishmentTable, ""),
   emberCommandEntrySubMenu("network-creator", emberCommandPluginNetworkCreatorTable, ""),
   emberCommandEntrySubMenu("network-creator-security", emberCommandPluginNetworkCreatorSecurityTable, ""),
   emberCommandEntrySubMenu("network-steering", emberCommandPluginNetworkSteeringTable, ""),
@@ -1356,7 +1325,6 @@ static EmberCommandEntry emberCommandPluginTable[] = {
   emberCommandEntrySubMenu("reporting", emberCommandPluginReportingTable, ""),
   emberCommandEntrySubMenu("simple-metering-client", emberCommandPluginSimpleMeteringClientTable, ""),
   emberCommandEntrySubMenu("smart-energy-registration", emberCommandPluginSmartEnergyRegistrationTable, ""),
-  emberCommandEntrySubMenu("trust-center-backup", emberCommandPluginTrustCenterBackupTable, ""),
   emberCommandEntrySubMenu("update-tc-link-key", emberCommandPluginUpdateTcLinkKeyTable, ""),
   emberCommandEntryTerminator(),
 };
