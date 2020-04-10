@@ -51,6 +51,9 @@
   EmberEventControl emberAfPluginSmartEnergyRegistrationTickNetworkEventControls[1]; \
   extern void emberAfPluginSmartEnergyRegistrationTickNetworkEventHandler(void); \
   void emberAfPluginSmartEnergyRegistrationTickNetworkEventWrapper0(void) { networkEventWrapper(&emberAfPluginSmartEnergyRegistrationTickNetworkEventControls[0], emberAfPluginSmartEnergyRegistrationTickNetworkEventHandler, 0); } \
+  EmberEventControl emberAfPluginTrustCenterKeepaliveTickNetworkEventControls[1]; \
+  extern void emberAfPluginTrustCenterKeepaliveTickNetworkEventHandler(void); \
+  void emberAfPluginTrustCenterKeepaliveTickNetworkEventWrapper0(void) { networkEventWrapper(&emberAfPluginTrustCenterKeepaliveTickNetworkEventControls[0], emberAfPluginTrustCenterKeepaliveTickNetworkEventHandler, 0); } \
   static void clusterTickWrapper(EmberEventControl *control, EmberAfTickFunction callback, uint8_t endpoint) \
   { \
     emberAfPushEndpointNetworkIndex(endpoint); \
@@ -83,6 +86,7 @@
   { &emberAfPluginUpdateTcLinkKeyBeginTcLinkKeyUpdateEventControl, emberAfPluginUpdateTcLinkKeyBeginTcLinkKeyUpdateEventHandler }, \
   { &emberAfPluginPermitJoinManagerTimeoutNetworkEventControls[0], emberAfPluginPermitJoinManagerTimeoutNetworkEventWrapper0 }, \
   { &emberAfPluginSmartEnergyRegistrationTickNetworkEventControls[0], emberAfPluginSmartEnergyRegistrationTickNetworkEventWrapper0 }, \
+  { &emberAfPluginTrustCenterKeepaliveTickNetworkEventControls[0], emberAfPluginTrustCenterKeepaliveTickNetworkEventWrapper0 }, \
 
 
 #define EMBER_AF_GENERATED_EVENT_STRINGS   \
@@ -104,6 +108,7 @@
   "Update TC Link Key Plugin BeginTcLinkKeyUpdate",  \
   "Permit Join Manager Plugin Timeout NWK 0", \
   "Smart Energy Registration Plugin Tick NWK 0", \
+  "Trust Center Keepalive Plugin Tick NWK 0", \
 
 
 // The length of the event context table used to track and retrieve cluster events
