@@ -60,12 +60,14 @@ bool emAfRetrieveAttributeAndCraftResponse(uint8_t endpoint, EmberAfClusterId cl
 // ZigbeeKeyEstablishment function declarations.
 void emberAfZigbeeKeyEstablishmentCallback(EmberEUI64 partner, EmberKeyStatus status);  // Global
 void emberAfPluginNetworkCreatorSecurityZigbeeKeyEstablishmentCallback(EmberEUI64 partner, EmberKeyStatus status);  // Plugin: network-creator-security
+void emberAfPluginPartnerLinkKeyExchangeZigbeeKeyEstablishmentCallback(EmberEUI64 partner, EmberKeyStatus status);  // Plugin: partner-link-key-exchange
 void emberAfPluginUpdateTcLinkKeyZigbeeKeyEstablishmentCallback(EmberEUI64 partner, EmberKeyStatus status);  // Plugin: update-tc-link-key
 
 void emAfZigbeeKeyEstablishment(EmberEUI64 partner, EmberKeyStatus status)
 {
   emberAfZigbeeKeyEstablishmentCallback(partner, status);  // Global
   emberAfPluginNetworkCreatorSecurityZigbeeKeyEstablishmentCallback(partner, status);  // Plugin: network-creator-security
+  emberAfPluginPartnerLinkKeyExchangeZigbeeKeyEstablishmentCallback(partner, status);  // Plugin: partner-link-key-exchange
   emberAfPluginUpdateTcLinkKeyZigbeeKeyEstablishmentCallback(partner, status);  // Plugin: update-tc-link-key
 }
 
