@@ -128,6 +128,21 @@ void emberAfScenesClusterClearSceneTableCallback(uint8_t endpoint)
 {
 }
 
+/** @brief Key Establishment Cluster Client Command Received
+ *
+ * This function is called by the application framework when a server-to-client
+ * key establishment command is received but has yet to be handled by the
+ * framework code.  This function should return a bool value indicating whether
+ * the command has been handled by the application code and should not be
+ * further processed by the framework.
+ *
+ * @param cmd   Ver.: always
+ */
+bool emberAfKeyEstablishmentClusterClientCommandReceivedCallback(EmberAfClusterCommand *cmd)
+{
+  return false;
+}
+
 /** @brief Cluster Init
  *
  * This function is called when a specific cluster is initialized. It gives the
@@ -728,6 +743,39 @@ EmberPacketAction emberAfIncomingPacketFilterCallback(EmberZigbeePacketType pack
                                                       void* data)
 {
   return EMBER_ACCEPT_PACKET;
+}
+
+/** @brief Initiate Inter Pan Key Establishment
+ *
+ * This function is called by the framework to initiate key establishment with a
+ * remote device on a different PAN.  The application should return
+ * EMBER_SUCCESS if key establishment was initiated successfully.  The
+ * application should call ::emberAfInterPanKeyEstablishmentCallback as events
+ * occur.
+ *
+ * @param panId The PAN id of the remote device.  Ver.: always
+ * @param eui64 The EUI64 of the remote device.  Ver.: always
+ */
+EmberStatus emberAfInitiateInterPanKeyEstablishmentCallback(EmberPanId panId,
+                                                            const EmberEUI64 eui64)
+{
+  return EMBER_LIBRARY_NOT_PRESENT;
+}
+
+/** @brief Initiate Key Establishment
+ *
+ * This function is called by the framework to initiate key establishment with a
+ * remote device.  The application should return EMBER_SUCCESS if key
+ * establishment was initiated successfully.  The application should call
+ * ::emberAfKeyEstablishmentCallback as events occur.
+ *
+ * @param nodeId The node id of the remote device.  Ver.: always
+ * @param endpoint The endpoint on the remote device.  Ver.: always
+ */
+EmberStatus emberAfInitiateKeyEstablishmentCallback(EmberNodeId nodeId,
+                                                    uint8_t endpoint)
+{
+  return EMBER_LIBRARY_NOT_PRESENT;
 }
 
 /** @brief Inter Pan Key Establishment
@@ -1592,6 +1640,18 @@ EmberPacketAction emberAfOutgoingPacketFilterCallback(EmberZigbeePacketType pack
   return EMBER_ACCEPT_PACKET;
 }
 
+/** @brief Performing Key Establishment
+ *
+ * This function is called by the framework to determine if the device is
+ * performing key establishment.  The application should return true if key
+ * establishment is in progress.
+ *
+ */
+bool emberAfPerformingKeyEstablishmentCallback(void)
+{
+  return false;
+}
+
 /** @brief Broadcast Sent
  *
  * This function is called when a new MTORR broadcast has been successfully
@@ -2320,6 +2380,21 @@ void emberAfSecurityInitCallback(EmberInitialSecurityState *state,
                                  EmberExtendedSecurityBitmask *extended,
                                  bool trustCenter)
 {
+}
+
+/** @brief Key Establishment Cluster Server Command Received
+ *
+ * This function is called by the application framework when a client-to-server
+ * key establishment command is received but has yet to be handled by the
+ * framework code.  This function should return a bool value indicating whether
+ * the command has been handled by the application code and should not be
+ * further processed by the framework.
+ *
+ * @param cmd   Ver.: always
+ */
+bool emberAfKeyEstablishmentClusterServerCommandReceivedCallback(EmberAfClusterCommand *cmd)
+{
+  return false;
 }
 
 /** @brief Set Default Poll Control
