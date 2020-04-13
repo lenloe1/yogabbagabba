@@ -19,6 +19,9 @@ Platform:pc
 # Setup configurations
 {setupId:additionalFiles
 }
+{setupId:bleGattConfigurator
+<?xml version="1.0" encoding="UTF-8"?><gatt gatt_caching="false" generic_attribute_service="false" header="gatt_db.h" name="Custom BLE GATT" out="gatt_db.c" prefix="gattdb_"/>
+}
 {setupId:boardHeader
 allowMissingHeader:false
 useHeaderInPlace:false
@@ -149,6 +152,11 @@ It involves the use of the following plugins:
 -DEM_AF_TEST_HARNESS_CODE
 -DEM_AF_LINK_M
 -DEM_AF_LINK_PTHREAD
+MACRO=VALUE
+}
+{setupId:mpsi
+- mappings
+- custom messages
 }
 {setupId:pluginService
 }
@@ -184,7 +192,7 @@ efr32=0,false,*,*,*,*,*
 {setupId:token
 }
 {setupId:zclAfv2
-intMap:ManufacturingCode = 4098
+intMap:ManufacturingCode = 4136
 intMap:ReportTableSize = 5
 intMap:Endpoint = 10
 intMap:DeviceVersion = 0
@@ -226,9 +234,9 @@ cl:0x0300, at:0x400A, di:server, mf:0x0000 => 0x0019
 endAttributeDefaults
 configuredNetwork:*type:ZIGBEE_PRO, name:Primary
 beginEndpointType:Primary
-device:zcustom
-deviceId:-1
-profileId:-1
+device:SE-IPD
+deviceId:1282
+profileId:265
 overrideClientCluster:0x0000,yes
 overrideClientCluster:0x0001,no
 overrideClientCluster:0x0002,no
@@ -270,7 +278,7 @@ overrideClientCluster:0x0502,no
 overrideClientCluster:0x0600,no
 overrideClientCluster:0x0601,no
 overrideClientCluster:0x0614,no
-overrideClientCluster:0x0700,no
+overrideClientCluster:0x0700,yes
 overrideClientCluster:0x0701,no
 overrideClientCluster:0x0702,yes
 overrideClientCluster:0x0703,no
@@ -401,11 +409,11 @@ CliCommands:compile,plugin ota-bootload info
 appPlugin:address-table,true
 
 appPlugin:aes-cmac,false
-appPlugin:aes-software,false
+appPlugin:aes-software,true
+
 appPlugin:antenna-cli,false
 appPlugin:barrier-control-server,false
-appPlugin:basic,true
-
+appPlugin:basic,false
 appPlugin:battery-monitor,false
 appPlugin:battery-monitor-stub,false
 appPlugin:bulb-pwm-driver,false
@@ -415,13 +423,13 @@ appPlugin:button-joining,false
 appPlugin:calendar-client,false
 appPlugin:calendar-common,false
 appPlugin:calendar-server,false
-appPlugin:ccm-encryption,false
+appPlugin:ccm-encryption,true
+
 appPlugin:cjson,false
 appPlugin:coap-server,false
 appPlugin:coexistence-cli,false
 appPlugin:color-control,false
-appPlugin:color-control-server,true
-
+appPlugin:color-control-server,false
 appPlugin:command-relay,false
 appPlugin:comms-hub-function,false
 appPlugin:comms-hub-function-sub-ghz,false
@@ -430,7 +438,8 @@ appPlugin:concentrator,true
 appPlugin:counters,true
 
 appPlugin:delayed-join,false
-appPlugin:device-database,false
+appPlugin:device-database,true
+
 appPlugin:device-management-client,false
 appPlugin:device-management-server,false
 appPlugin:device-query-service,false
@@ -446,7 +455,8 @@ appPlugin:eeprom,false
 appPlugin:eeprom-powerdown,false
 appPlugin:ember-minimal-printf,false
 appPlugin:end-device-support,false
-appPlugin:esi-management,false
+appPlugin:esi-management,true
+
 appPlugin:events-client,false
 appPlugin:events-server,false
 appPlugin:ezmode-commissioning,true
@@ -462,8 +472,10 @@ appPlugin:file-descriptor-dispatch,true
 
 appPlugin:find-and-bind-initiator,false
 appPlugin:find-and-bind-target,false
-appPlugin:form-and-join,false
-appPlugin:fragmentation,false
+appPlugin:form-and-join,true
+
+appPlugin:fragmentation,true
+
 appPlugin:gas-proxy-function,false
 appPlugin:gateway,true
 
@@ -478,19 +490,15 @@ appPlugin:generic-interrupt-control,false
 appPlugin:generic-interrupt-control-stub,false
 appPlugin:gpio-sensor,false
 appPlugin:gpio-sensor-stub,false
-appPlugin:green-power-client,true
-
-appPlugin:green-power-common,true
-
+appPlugin:green-power-client,false
+appPlugin:green-power-common,false
 appPlugin:green-power-server,false
 appPlugin:green-power-translation-table,false
 appPlugin:groups-client,false
 appPlugin:groups-server,false
 appPlugin:hc-11073-tunnel,false
-appPlugin:heartbeat,true
-
-appPlugin:ias-zone-client,true
-
+appPlugin:heartbeat,false
+appPlugin:ias-zone-client,false
 appPlugin:ias-zone-server,false
 appPlugin:identify,true
 
@@ -500,8 +508,7 @@ appPlugin:interpan,false
 appPlugin:key-establishment,false
 appPlugin:led-blink,false
 appPlugin:led-blink-stub,false
-appPlugin:level-control,true
-
+appPlugin:level-control,false
 appPlugin:libcoap,false
 appPlugin:linked-list,true
 
@@ -524,35 +531,32 @@ appPlugin:network-creator,true
 
 appPlugin:network-creator-security,true
 
-appPlugin:network-find,false
-appPlugin:network-find-sub-ghz,false
+appPlugin:network-find,true
+
+appPlugin:network-find-sub-ghz,true
+
 appPlugin:network-steering,true
 
 appPlugin:occupancy-pyd1698,false
 appPlugin:occupancy-pyd1698-stub,false
-appPlugin:on-off,true
-
+appPlugin:on-off,false
 appPlugin:ota-bootload,false
 appPlugin:ota-client,false
 appPlugin:ota-client-policy,false
-appPlugin:ota-common,true
-
-appPlugin:ota-server,true
-
-appPlugin:ota-server-policy,true
-
-appPlugin:ota-storage-common,true
-
-appPlugin:ota-storage-posix-filesystem,true
-
+appPlugin:ota-common,false
+appPlugin:ota-server,false
+appPlugin:ota-server-policy,false
+appPlugin:ota-storage-common,false
+appPlugin:ota-storage-posix-filesystem,false
 appPlugin:ota-storage-simple,false
 appPlugin:ota-storage-simple-eeprom,false
 appPlugin:ota-storage-simple-ram,false
 appPlugin:paho.mqtt.c,false
-appPlugin:partner-link-key-exchange,false
-appPlugin:permit-join-manager,false
-appPlugin:poll-control-client,true
+appPlugin:partner-link-key-exchange,true
 
+appPlugin:permit-join-manager,true
+
+appPlugin:poll-control-client,false
 appPlugin:poll-control-server,false
 appPlugin:power-consumption-model,false
 appPlugin:power-meter-cs5463,false
@@ -560,8 +564,10 @@ appPlugin:power-meter-cs5463-stub,false
 appPlugin:prepayment-client,false
 appPlugin:prepayment-server,false
 appPlugin:prepayment-snapshot-storage,false
-appPlugin:price-client,false
-appPlugin:price-common,false
+appPlugin:price-client,true
+
+appPlugin:price-common,true
+
 appPlugin:price-server,false
 appPlugin:reporting,true
 
@@ -574,7 +580,8 @@ appPlugin:scenes-client,false
 appPlugin:secure-ezsp,false
 appPlugin:secure-ezsp-stub,true
 
-appPlugin:security-support,false
+appPlugin:security-support,true
+
 appPlugin:simple-clock,false
 appPlugin:simple-main,true
 
@@ -583,9 +590,9 @@ appPlugin:simple-metering-client,true
 appPlugin:simple-metering-server,false
 appPlugin:sleepy-message-queue,false
 appPlugin:slot-manager,false
-appPlugin:smart-energy-registration,false
-appPlugin:stack-diagnostics,true
+appPlugin:smart-energy-registration,true
 
+appPlugin:stack-diagnostics,false
 appPlugin:stack-protection-iar,false
 appPlugin:standalone-bootloader-client,false
 appPlugin:standalone-bootloader-common,false
@@ -596,19 +603,15 @@ appPlugin:sub-ghz-client,false
 appPlugin:sub-ghz-server,false
 appPlugin:tamper-switch,false
 appPlugin:tamper-switch-stub,false
-appPlugin:test-harness,true
-
+appPlugin:test-harness,false
 appPlugin:test-harness-z3,false
 appPlugin:throughput,false
-appPlugin:time-server,true
-
+appPlugin:time-server,false
 appPlugin:transport-mqtt,false
 appPlugin:trust-center-backup,false
 appPlugin:trust-center-keepalive,false
-appPlugin:trust-center-nwk-key-update-broadcast,true
-
-appPlugin:trust-center-nwk-key-update-periodic,true
-
+appPlugin:trust-center-nwk-key-update-broadcast,false
+appPlugin:trust-center-nwk-key-update-periodic,false
 appPlugin:trust-center-nwk-key-update-unicast,true
 
 appPlugin:tunneling-client,false
@@ -651,3 +654,4 @@ AppPluginOption:EMBER_AF_PLUGIN_NETWORK_FIND_RADIO_TX_CALLBACK,false
 AppPluginOption:EMBER_AF_PLUGIN_NETWORK_CREATOR_RADIO_POWER,-2
 AppPluginOption:EMBER_AF_PLUGIN_NETWORK_CREATOR_SECURITY_NETWORK_OPEN_TIME_S,180
 AppPluginOption:EMBER_TRANSIENT_KEY_TIMEOUT_S,180
+AppPluginOption(pc):EMBER_AF_PLUGIN_KEY_ESTABLISHMENT_SE_VERSION,1.0 and 1.1
